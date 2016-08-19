@@ -1,0 +1,21 @@
+<input type="hidden" name="monitor_1" value="monitor|horizontal|image1.jpg" /><br />
+<input type="hidden" name="monitor_2" value="monitor|vertical|image5.jpg" /><br />
+<input type="hidden" name="monitor_3" value="monitor|vertical|motivational-Moraine-Lake-BIG.jpg" /><br />
+
+
+iframe {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	overflow: hidden;
+	width: 1920px;
+	height: 1080px;
+}
+
+
+html,body{ margin:0; padding:0; height:100%; width:100%; }
+#showImage{
+	height:100%;
+	width:100%;
+	overflow:hidden; !* or overflow:auto; if you want scrollbars *!
+}

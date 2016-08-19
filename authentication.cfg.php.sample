@@ -1,0 +1,46 @@
+<?php
+
+	# ---------------------------
+	# configuration settings file
+	# ---------------------------
+
+	# ---------------------------
+	# Institution
+	# ---------------------------
+	define('INSTITUTION_DOMAIN', 'institution.edu');
+
+	# ---------------------------
+	# Application folder path
+	# ---------------------------
+	define('APP_STR',       'folder/subdirectory');
+	define('APP_FOLDER',    'http://localhost/'.APP_STR); // Use HTTPS for live/staging servers!
+	define('APP_ROOT_PATH', '/' . APP_STR);
+
+	# ---------------------------
+	# Database connection
+	# ---------------------------
+	define('DB_SERVER', 'live_server_address');
+	define('DB_NAME',   'database_name');
+	define('DB_USER',   'db_user');
+	define('DB_PASS',   'db_user_password');
+
+	# ---------------------------
+	# External Content Delivery Network
+	# ---------------------------
+	# ***** Google CDN: https://developers.google.com/speed/libraries/devguide#jquery
+	define('PATH_JQUERY_JS', '//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js');
+	define('PATH_JQUERYUI_JS', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js');
+	define('PATH_JQUERYUI_CSS', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/dot-luv/jquery-ui.min.css');
+
+	# ---------------------------
+	# Local File Paths
+	# ---------------------------
+	# ***** Bootstrap: http://getbootstrap.com/
+	define('PATH_BOOTSTRAP_JS', APP_ROOT_PATH . '/js/bootstrap/js/bootstrap.min.js?rel=3.3.6');
+	define('PATH_BOOTSTRAP_CSS', APP_ROOT_PATH . '/js/bootstrap/css/bootstrap.min.css?rel=3.3.6');
+
+	# ---------------------------
+	# External Dependency: php.ini configuration file
+	# ---------------------------
+	# TimeZone Problem: the default php.ini setting may be incorrect; correct by explicitly setting this configuration to your region
+	# TimeZone Solution: (Line 1044 of php.ini: Module Settings/Date/date.timezone = America/New_York)

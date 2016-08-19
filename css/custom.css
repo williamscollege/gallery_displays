@@ -1,0 +1,39 @@
+body {
+	margin: 0;
+	padding: 0;
+}
+
+#showImage{
+	margin: 0;
+	padding: 0;
+}
+
+img {
+	display: block;
+}
+
+.uppercase{
+	text-transform: uppercase;
+}
+
+.background_monitor{
+	background-image: url(icon_empty_monitor.png);
+	background-repeat: no-repeat;
+	width: 200px;
+	height: 122px;
+	margin: 10px;
+	float: left;
+	background-color: white;
+}
+
+.background_monitor:hover{
+	background-color: yellowgreen;
+}
+
+.monitor_text{
+	text-align: center;
+	padding-top: 33px;
+	font-size: large;
+	font-weight: bold;
+}
+
