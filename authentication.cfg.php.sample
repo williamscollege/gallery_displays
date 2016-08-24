@@ -3,6 +3,7 @@
 	# ---------------------------
 	# configuration settings file
 	# ---------------------------
+	define('DEBUG_APP', TRUE);
 
 	# ---------------------------
 	# Institution
@@ -44,3 +45,4 @@
 	# ---------------------------
 	# TimeZone Problem: the default php.ini setting may be incorrect; correct by explicitly setting this configuration to your region
 	# TimeZone Solution: (Line 1044 of php.ini: Module Settings/Date/date.timezone = America/New_York)
+	date_default_timezone_set('America/New_York');

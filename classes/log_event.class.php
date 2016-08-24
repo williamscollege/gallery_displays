@@ -2,7 +2,7 @@
 	require_once(dirname(__FILE__) . '/db_linked.class.php');
 
 	class LogEvent extends Db_Linked {
-		public static $fields = array('log_event_id', 'flag_success', 'event_action', 'event_action_id', 'event_action_target_type', 'event_note', 'event_dataset', 'event_filepath', 'user_agent_string', 'event_datetime');
+		public static $fields = array('log_event_id', 'gallery_id', 'flag_success', 'event_action', 'event_action_id', 'event_action_target_type', 'event_note', 'event_dataset', 'event_filepath', 'user_agent_string', 'event_datetime');
 		public static $primaryKeyField = 'log_event_id';
 		public static $dbTable = 'log_events';
 		public static $entity_type_label = 'log_event';
@@ -19,8 +19,9 @@
 		}
 
 		// static factory function to populate new object with desired base values
-		public static function createNewLogEvent($user_id, $flag_success, $event_action, $event_action_id, $event_action_target_type, $event_note, $event_dataset, $dbConnection) {
-			return new LogEvent(['DB'    => $dbConnection
+		public static function createNewLogEvent($gallery_id, $flag_success, $event_action, $event_action_id, $event_action_target_type, $event_note, $event_dataset, $dbConnection) {
+			return new LogEvent(['DB'        => $dbConnection
+				, 'gallery_id'               => $gallery_id
 				, 'flag_success'             => $flag_success
 				, 'event_action'             => $event_action
 				, 'event_action_id'          => $event_action_id

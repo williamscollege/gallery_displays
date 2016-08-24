@@ -3,45 +3,45 @@
 	 * Project: Gallery Displays
 	 * Purpose: Enable one or more monitors to update their display with independent content based on user choices
 	 * Purpose: Super easy to add new, distinct exhibitions in other locations
-	 * Instructions: see 0_readme.txt
+	 * Instructions: see readme.txt
 	 * Author: David Keiser-Clark, Williams College
 	 */
 
 
 	require_once(dirname(__FILE__) . '/app_setup.php');
 
-
 	// TODO
-	// Every X seconds, retrieve image for this monitor based on url querystring and previously updated session variables
-	// instructions needed on how to add additional monitors (shell script to create new files
-	// array to set how many monitors (config file)
-	// logs - create logs of files chosen per each monitor_x.php file
-	// define root path for server usage
-	// update 0_readme.txt
-	// sync multiple monitors to run "updates" based on time of webserver (or Atomic Clock) to have all in same rotation pattern
+	// sync multiple monitors to run "updates" based on time of webserver (or Atomic Clock) to have all in same rotation pattern OR use small time frame as refresh integer
 	// - THIS ONE: http://stackoverflow.com/questions/9254730/get-current-time-of-webserver
-	// -
 	// - https://www.experts-exchange.com/questions/21731051/Trying-to-get-Atomic-Time-via-PHP-or-Javascript.html
 	// - maybe wait until seconds reach 00 (once, twice?), or: how long does it take to push restart on 5 Chrome Stick monitors?
 	// - http://www.kloth.net/software/timesrv1.php
-	// REMOVE unused code from util.php
-	// TODO - use db_linked.class.php and convert procedural to oop classes
+
+	// TODO - only log when new images are processed
+	// TODO - REMOVE unused code from util.php
+	// TODO - implement logs as json summaries
+	// TODO - add dir scan remove (if dir is removed, then soft-delete that monitor from db)
+	// TODO - on setup page: if gallery exists with 0 monitors, then skip (do not display)
 
 	require_once("util.php");
 
+
 	// ***************************
-	// CONFIG VALUES
+	// set variables
 	// ***************************
 	define('DELAY_SECONDS', 3);
 
+
 	// required: querystring value
-	if ((isset($_REQUEST['monitor'])) && (is_numeric($_REQUEST['monitor']) && ($_REQUEST['monitor'] > 0))) {
-		$gallery_display = $_REQUEST['monitor'];
-		// echo "monitor_id = " . $gallery_display; exit; // debugging
+	if ((isset($_REQUEST['id'])) && (is_numeric($_REQUEST['id']) && ($_REQUEST['id'] > 0))) {
+		$monitor_id = $_REQUEST['id'];
+		if (DEBUG_APP) {
+			echo "index.php: monitor_id = " . $monitor_id;
+		}
 	}
 	else {
 		// need to identify this monitor from available options
-		header("location: 1_identify_monitor.php");
+		header("location: setup_gallery_monitors.php");
 		exit;
 	}
 ?>
@@ -65,11 +65,14 @@
 	<!-- local JS -->
 
 	<script>
+		//
 		$(window).resize(function () {
 			if ((window.fullScreen) || (window.innerWidth == screen.width && window.innerHeight == screen.height)) {
+				// fullscreen mode: hide the scrollbars
 				$("html").css("overflow", "hidden");
 			}
 			else {
+				// not fullscreen: show scrollbars as per usual
 				$("html").css("overflow", "auto");
 			}
 		});
@@ -78,13 +81,14 @@
 			// trigger the function when the page loads
 			$(window).resize();
 
-			// force ajax to fetch new image from server every X seconds, if one exists
+			// load new image from server every X seconds, if one exists
 			function fetchImage() {
-				$('#showImage').load('fetch_image.php?monitor=<?php echo $gallery_display; ?>', function () {
+				$('#showImage').load('fetch_image.php?id=<?php echo $monitor_id; ?>', function () {
 					$(this).unwrap();
 				});
 			}
 
+			// set delay interval as milliseconds
 			var delay_seconds_as_ms = <?php echo DELAY_SECONDS;?> *
 			1000;
 			setInterval(fetchImage, delay_seconds_as_ms);
@@ -93,9 +97,7 @@
 </head>
 <body>
 <?php
-	// ***************************
-	// image content
-	// ***************************
+	// show image content
 	echo "<div id=\"showImage\"></div>";
 ?>
 </body>

@@ -2,13 +2,11 @@
 	require_once(dirname(__FILE__) . '/db_linked.class.php');
 
 	class Monitor extends Db_Linked {
-		public static $fields = array('monitor_id', 'gallery_id', 'monitor_name', 'created_at', 'updated_at', 'flag_delete');
+		public static $fields = array('monitor_id', 'gallery_id', 'monitor_name', 'image_filename', 'created_at', 'updated_at', 'flag_delete');
 		public static $primaryKeyField = 'monitor_id';
 		public static $dbTable = 'monitors';
 		public static $entity_type_label = 'monitor';
 
-
-		public $images;
 
 		public function __construct($initsHash) {
 			parent::__construct($initsHash);
@@ -17,7 +15,6 @@
 			// e.g. automatically load all accessibility info associated with this object
 			// $this->flag_workflow_published = false;
 			// $this->flag_workflow_validated = false;
-			$this->images = array();
 		}
 
 		// static factory function to populate new object with desired base values
@@ -26,16 +23,17 @@
 				'monitor_id'   => 'NEW',
 				'gallery_id'   => 0,
 				'monitor_name' => '',
+				'image_filename' => '',
 				'created_at'   => util_currentDateTimeString_asMySQL(),
-				'updated_at'   => util_currentDateTimeString_asMySQL(),
+				'updated_at'   => NULL,
 				'flag_delete'  => 0,
 				'DB'           => $dbConnection
 			]);
 		}
 
-		public function clearCaches() {
-			$this->images = array();
-		}
+//		public function clearCaches() {
+//
+//		}
 
 		/* static functions */
 
@@ -51,7 +49,7 @@
 
 
 		/* public functions */
-
+/*
 		// cache provides data while eliminating unnecessary DB calls
 		public function cacheImages() {
 			if (!$this->images) {
@@ -64,6 +62,6 @@
 			$this->images = [];
 			$this->images = Image::getAllFromDb(['monitor_id' => $this->monitor_id], $this->dbConnection);
 			usort($this->images, 'Image::cmp');
-		}
+		}*/
 
 	}

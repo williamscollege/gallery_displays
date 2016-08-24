@@ -13,6 +13,21 @@ Gallery Displays
 Image Preparation
 -----------------------------------
 	Resolution of each image should match, exactly, the monitor it will be displayed on.
+	Each gallery image folder will correspond to a monitor within that gallery
+	Image folder naming convention: gallery_monitor_number
+	Examples:
+		sawyer_monitor_1
+		sawyer_monitor_2
+		wcma_monitor_1
+		wcma_monitor_2
+		wcma_monitor_3
+	Images must be one of the following types: .jpg|.png|.gif
+
+
+-----------------------------------
+How to add additional gallery monitors
+-----------------------------------
+
 
 -----------------------------------
 Initial Configurations to Chrome Stick OS
@@ -21,9 +36,12 @@ Initial Configurations to Chrome Stick OS
 		If yes: make the settings below on any one device and they will propagate to all devices using same google account name
 		If not: you will need to do the steps below on each Chrome Stick, as each will have its own distinct google account name
 
-	Settings: Advanced: On startup: Open a specific page of set of pages.
-		URL = https://apps.williams.edu/multiple_displays/index.php?monitor=X
-		where X is the number of the monitor (i.e. 1, 2, 3 or 4)
+	Settings: Advanced: On startup: Select "Open a specific page or set of pages"
+		URL = https://apps.williams.edu/gallery_displays/
+
+		This base url will automatically:
+			- sync db with directory scan of images folder
+			- enable the setup person (ie security guard) to identify each monitor from a list of available options
 
 	How to disable default Chrome OS Sleep Mode
 		Add app "Keep Awake" and set to "Sun" mode to enable monitor and OS to remain awake at all times

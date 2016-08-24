@@ -1,21 +1,26 @@
 <?php
 	/**
-	 * File Overview:
+	 * Project: Gallery Displays
+	 * Purpose: File Overview
 	 * select * from monitors
 	 * do directory scan of images directory
-	 * compare db with directory scan: if new image directories exist that are not yet in DB, insert new directories to DB
-	 * select * from monitors order by monitor_name ASC
-	 * display on page as html links
+	 * sync db with directory scan of images folder: add or remove image directories in database to synchronize both
+	 * set a default image_filename for each monitor
+	 * enable the setup person (ie security guard) to identify each monitor from a list of available options (HTML links on page)
+	 * selecting a monitor will set that browser to pull images intended only for that monitor
+	 * Author: David Keiser-Clark, Williams College
 	 */
 
+	// ***************************
+	// required files
+	// ***************************
 	require_once(dirname(__FILE__) . '/app_setup.php');
 
 
+	# TODO - Consider putting this directory scan stuff into another file, to enable it to periodically run silently
+
 	# fetch galleries
 	$galleries = Gallery::getAllFromDb([], $DB);
-	// util_prePrintR($galleries);
-
-	// TODO - Consider putting this inside the session_keep_alive.php file and calling it at beginning of this file.
 
 	# read directory contents to create dynamic list of exhibition and monitor options
 	$array_directories = [];
@@ -29,12 +34,15 @@
 		}
 		closedir($handle);
 	}
-	// util_prePrintR($array_directories);
 
 	# fetch monitors
 	$all_monitors = Monitor::getAllFromDb([], $DB);
-	//util_prePrintR($all_monitors);
 
+	if (DEBUG_APP) {
+		util_prePrintR($galleries);
+		util_prePrintR($array_directories);
+		util_prePrintR($all_monitors);
+	}
 
 	# check: are there new directories?
 	foreach ($array_directories as $directory) {
@@ -52,12 +60,10 @@
 
 			// update or create record
 			if ($deactivated_monitor->matchesDb) {
-				echo 'Need to update monitor record: ' . $directory . "<br />";
-
 				// update record
-				$deactivated_monitor->flag_delete = 0;
-				$deactivated_monitor->updated_at  = util_currentDateTimeString_asMySQL();
-
+				$deactivated_monitor->flag_delete    = 0;
+				$deactivated_monitor->image_filename = set_default_image_for_monitor($directory);
+				$deactivated_monitor->updated_at     = util_currentDateTimeString_asMySQL();
 				$deactivated_monitor->updateDb();
 
 				if (!$deactivated_monitor->matchesDb) {
@@ -70,13 +76,14 @@
 				}
 
 				// create event log. [requires: flag_success(bool), event_action(varchar), event_action_id(int), event_action_target_type(varchar), event_note(varchar), event_dataset(varchar)]
-				$evt_note = "Successfully updated monitor record<br />";
+				$evt_note = "Successfully updated monitor record " . $directory . "<br />";
 				// TODO: util_createEventLog($USER->user_id, TRUE, $action, $primaryID, "monitor_id", $evt_note, print_r(json_encode($_REQUEST), TRUE), $DB);
-				echo $evt_note;
+				if (DEBUG_APP) {
+					echo $evt_note;
+				}
 			}
 			else {
 				// create record
-
 				// check if we need to create a gallery (parent group) for this new monitor
 				$directory_prefix = strchr($directory, "_", -1); // fetch prefix of directory (example: "wcma" is prefix of "wcma_monitor_1")
 				$new_gallery      = Gallery::getOneFromDb(['gallery_name' => $directory_prefix], $DB);
@@ -90,7 +97,6 @@
 						// update record
 						$deactivated_gallery->flag_delete = 0;
 						$deactivated_gallery->updated_at  = util_currentDateTimeString_asMySQL();
-
 						$deactivated_gallery->updateDb();
 
 						if (!$deactivated_gallery->matchesDb) {
@@ -103,18 +109,16 @@
 						}
 
 						// create event log. [requires: flag_success(bool), event_action(varchar), event_action_id(int), event_action_target_type(varchar), event_note(varchar), event_dataset(varchar)]
-						$evt_note = "Successfully updated gallery record<br />";
+						$evt_note = "Successfully updated gallery record: " . $directory_prefix . "<br/>";
 						// TODO: util_createEventLog($USER->user_id, TRUE, $action, $primaryID, "gallery_id", $evt_note, print_r(json_encode($_REQUEST), TRUE), $DB);
-						echo $evt_note;
+						if (DEBUG_APP) {
+							echo $evt_note;
+						}
 					}
 					else {
 						// create record
-						echo 'create gallery record: ' . $directory_prefix . "<br/>";
-
-						$new_gallery = Gallery::createNewGallery($DB);
-
+						$new_gallery               = Gallery::createNewGallery($DB);
 						$new_gallery->gallery_name = $directory_prefix;
-
 						$new_gallery->updateDb();
 
 						if (!$new_gallery->matchesDb) {
@@ -127,20 +131,19 @@
 						}
 
 						// create event log. [requires: flag_success(bool), event_action(varchar), event_action_id(int), event_action_target_type(varchar), event_note(varchar), event_dataset(varchar)]
-						$evt_note = "Successfully created gallery record<br />";
+						$evt_note = "Successfully created gallery record: " . $directory_prefix . "<br/>";
 						// TODO: util_createEventLog($USER->user_id, TRUE, $action, $primaryID, "gallery_id", $evt_note, print_r(json_encode($_REQUEST), TRUE), $DB);
-						echo $evt_note;
+						if (DEBUG_APP) {
+							echo $evt_note;
+						}
 					}
 
 				}
-
-				echo 'BBBBBBBBLING' . $new_gallery->gallery_id;
-
-				$new_monitor = Monitor::createNewMonitor($DB);
-
-				$new_monitor->gallery_id   = $new_gallery->gallery_id;
-				$new_monitor->monitor_name = $directory;
-
+				// create record
+				$new_monitor                 = Monitor::createNewMonitor($DB);
+				$new_monitor->gallery_id     = $new_gallery->gallery_id;
+				$new_monitor->monitor_name   = $directory;
+				$new_monitor->image_filename = set_default_image_for_monitor($directory);
 				$new_monitor->updateDb();
 
 				if (!$new_monitor->matchesDb) {
@@ -153,9 +156,11 @@
 				}
 
 				// create event log. [requires: flag_success(bool), event_action(varchar), event_action_id(int), event_action_target_type(varchar), event_note(varchar), event_dataset(varchar)]
-				$evt_note = "Successfully created monitor record<br />";
+				$evt_note = "Successfully created monitor record: " . $directory . "<br/>";
 				// TODO: util_createEventLog($USER->user_id, TRUE, $action, $primaryID, "monitor_id", $evt_note, print_r(json_encode($_REQUEST), TRUE), $DB);
-				echo $evt_note;
+				if (DEBUG_APP) {
+					echo $evt_note;
+				}
 			}
 		}
 	}
@@ -181,12 +186,14 @@
 	<!-- jQuery: Plugins -->
 	<!-- local JS -->
 </head>
-<body style="background-color: mediumpurple">
+<body style="background-color: mediumpurple; margin: 0 10px;">
 
-<h1>Please identify this monitor from the galleries below:</h1>
+<h1>Setup: Please identify this monitor from the galleries below:</h1>
 
 <?php
-	// fetch all monitors within each gallery
+	// fetch galleries
+	$galleries = Gallery::getAllFromDb([], $DB);
+
 	foreach ($galleries as $gallery) {
 		// load monitors for this gallery
 		$gallery->loadMonitors();
@@ -198,13 +205,12 @@
 		// display monitors within each gallery
 		foreach ($gallery->monitors as $monitor) {
 			echo "<div class=\"background_monitor\">";
-			echo "<p class=\"monitor_text\"><a href=\"" . APP_FOLDER . "/index.php?monitor=" . $monitor->monitor_id . "\" title=\"" . $monitor->monitor_name . "\"/>" . $monitor->monitor_name . "</a></p>";
+			echo "<p class=\"monitor_text\"><a href=\"" . APP_FOLDER . "/index.php?id=" . $monitor->monitor_id . "\" title=\"" . $monitor->monitor_name . "\"/>" . $monitor->monitor_name . "</a></p>";
 			echo "</div>";
 		}
-
-		// close gallery div
 		echo '</div>';
 	}
 ?>
+
 </body>
 </html>

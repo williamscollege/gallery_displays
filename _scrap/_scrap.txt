@@ -1,3 +1,24 @@
+
+	/*switch ($monitor) {
+		case 1:
+
+			echo '<img src="wcma_monitor_1/' . $_SESSION["MONITOR_1"] . '" alt="" title="" />';
+			break;
+		case 2:
+			# output image path from session variable
+			echo '<img src="wcma_monitor_2/' . $_SESSION["MONITOR_2"] . '" alt="" title="" />';
+			break;
+		case 3:
+			# output image path from session variable
+			echo '<img src="wcma_monitor_3/' . $_SESSION["MONITOR_3"] . '" alt="" title="" />';
+			break;
+		default:
+			echo "error";
+			break;
+	}*/
+
+
+
 <input type="hidden" name="monitor_1" value="monitor|horizontal|image1.jpg" /><br />
 <input type="hidden" name="monitor_2" value="monitor|vertical|image5.jpg" /><br />
 <input type="hidden" name="monitor_3" value="monitor|vertical|motivational-Moraine-Lake-BIG.jpg" /><br />

@@ -1,26 +1,21 @@
-/* 
-SAVE:		DB Creation and Maintenance Script
-PROJECT:	Gallery Displays
+/**
+ * Project: Gallery Displays
+ * Purpose: DB Creation and Maintenance Script
+ * Author: David Keiser-Clark, Williams College
 
-FOR TESTING ONLY:
+SAVE FOR TESTING ONLY:
 	USE `gallery_displays`;
 
 	DROP TABLE `galleries`;
 	DROP TABLE `monitors`;
-	DROP TABLE `images`;
-	DROP TABLE `log_images`;
 	DROP TABLE `log_events`;
 
 	DELETE FROM `galleries`;
 	DELETE FROM `monitors`;
-	DELETE FROM `images`;
-	DELETE FROM `log_images`;
 	DELETE FROM `log_events`;
 
 	SELECT * FROM `galleries`;
 	SELECT * FROM `monitors`;
-	SELECT * FROM `images`;
-	SELECT * FROM `log_images`;
 	SELECT * FROM `log_events`;
 */
 
@@ -60,36 +55,19 @@ CREATE TABLE IF NOT EXISTS `galleries` (
 	ENGINE = innodb
 	DEFAULT CHARACTER SET = utf8
 	COLLATE utf8_general_ci
-	COMMENT = 'Dynamically list each gallery';
+	COMMENT = 'Each gallery represents a distinct exhibition space or other type of display area.';
 
 CREATE TABLE IF NOT EXISTS `monitors` (
-	`monitor_id`   INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	`gallery_id`   INT          NOT NULL DEFAULT 0,
-	`monitor_name` VARCHAR(255) NOT NULL,
-	`created_at`   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	`updated_at`   TIMESTAMP    NULL,
-	`flag_delete`  BIT(1)       NOT NULL DEFAULT 0,
-	INDEX `monitor_id` (`monitor_id`),
-	INDEX `gallery_id` (`gallery_id`),
-	INDEX `monitor_name` (`monitor_name`),
-	INDEX `created_at` (`created_at`),
-	INDEX `updated_at` (`updated_at`),
-	INDEX `flag_delete` (`flag_delete`)
-)
-	ENGINE = innodb
-	DEFAULT CHARACTER SET = utf8
-	COLLATE utf8_general_ci
-	COMMENT = 'Dynamically list each monitor associated with each gallery';
-
-CREATE TABLE IF NOT EXISTS `images` (
-	`image_id`       INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	`monitor_id`     INT          NOT NULL DEFAULT 0,
+	`monitor_id`     INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`gallery_id`     INT          NOT NULL DEFAULT 0,
+	`monitor_name`   VARCHAR(255) NOT NULL,
 	`image_filename` VARCHAR(255) NOT NULL,
 	`created_at`     TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	`updated_at`     TIMESTAMP    NULL,
 	`flag_delete`    BIT(1)       NOT NULL DEFAULT 0,
-	INDEX `image_id` (`image_id`),
 	INDEX `monitor_id` (`monitor_id`),
+	INDEX `gallery_id` (`gallery_id`),
+	INDEX `monitor_name` (`monitor_name`),
 	INDEX `image_filename` (`image_filename`),
 	INDEX `created_at` (`created_at`),
 	INDEX `updated_at` (`updated_at`),
@@ -98,33 +76,13 @@ CREATE TABLE IF NOT EXISTS `images` (
 	ENGINE = innodb
 	DEFAULT CHARACTER SET = utf8
 	COLLATE utf8_general_ci
-	COMMENT = 'Images to be displayed next on identified monitors';
-
-CREATE TABLE IF NOT EXISTS `log_images` (
-	`log_image_id`   INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	`gallery_id`     INT          NOT NULL DEFAULT 0,
-	`monitor_id`     INT          NOT NULL DEFAULT 0,
-	`image_id`       INT          NOT NULL DEFAULT 0,
-	`monitor_name`   VARCHAR(255) NOT NULL,
-	`image_filename` VARCHAR(255) NOT NULL,
-	`created_at`     TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	`flag_delete`    BIT(1)       NOT NULL DEFAULT 0,
-	INDEX `log_image_id` (`log_image_id`),
-	INDEX `gallery_id` (`gallery_id`),
-	INDEX `monitor_id` (`monitor_id`),
-	INDEX `image_id` (`image_id`),
-	INDEX `monitor_name` (`monitor_name`),
-	INDEX `image_filename` (`image_filename`),
-	INDEX `created_at` (`created_at`),
-	INDEX `flag_delete` (`flag_delete`)
-)
-	ENGINE = innodb
-	DEFAULT CHARACTER SET = utf8
-	COLLATE utf8_general_ci
-	COMMENT = 'Image logs maintain a record of images selected to be displayed on monitors';
+	COMMENT = 'Monitors belong to a parent gallery grouping. Each monitor has one associated image.';
 
 CREATE TABLE IF NOT EXISTS `log_events` (
 	`log_event_id`             INT UNSIGNED  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`gallery_id`               INT           NOT NULL DEFAULT 0,
+	`monitors`                 VARCHAR(255)  NOT NULL,
+	`images`                   VARCHAR(255)  NOT NULL,
 	`flag_success`             TINYINT(1) UNSIGNED    DEFAULT 1,
 	`event_action`             VARCHAR(255)  NULL,
 	`event_action_id`          BIGINT(10) UNSIGNED    DEFAULT NULL,
@@ -139,4 +97,4 @@ CREATE TABLE IF NOT EXISTS `log_events` (
 	ENGINE = innodb
 	DEFAULT CHARACTER SET = utf8
 	COLLATE utf8_general_ci
-	COMMENT = 'Error logs maintain an audit of trapped errors';
+	COMMENT = 'Logs events such as user submissions of images for monitors, as well as any trapped errors.';

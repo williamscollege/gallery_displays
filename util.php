@@ -462,3 +462,29 @@
 		exit;
 	}
 
+
+	// set a default image_filename for each monitor
+	function set_default_image_for_monitor($directory){
+		// create an array of files (and directories) from the directory
+		$files = scandir(dirname(__FILE__) . '/images/' . $directory);
+
+		// remove any non-filename subdirectories (i.e. "." or "..")
+		foreach ($files as $element=>$value){
+			if($value== "." | $value== ".." ){
+				unset($files[$element]);
+			}
+		}
+
+		// randomly select an array index
+		$random_integer  = array_rand($files);
+
+		if (DEBUG_APP) {
+			echo "<h2>function: set_default_image_for_monitor:</h2>";
+			echo "array contains this many elements: " . count($files) . "<br />";
+			 util_prePrintR($files);
+			 util_prePrintR($files[$random_integer]);
+		}
+
+		// return the filename value of the randomly selected element
+		return $files[$random_integer];
+	}
