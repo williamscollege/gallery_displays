@@ -20,14 +20,14 @@
 		// static factory function to populate new object with desired base values
 		public static function createNewMonitor($dbConnection) {
 			return new Monitor([
-				'monitor_id'   => 'NEW',
-				'gallery_id'   => 0,
-				'monitor_name' => '',
-				'image_filename' => '',
-				'created_at'   => util_currentDateTimeString_asMySQL(),
-				'updated_at'   => NULL,
-				'flag_delete'  => 0,
-				'DB'           => $dbConnection
+				'monitor_id'   => 'NEW'
+				,'gallery_id'   => 0
+				,'monitor_name' => ''
+				,'image_filename' => ''
+				,'created_at'   => util_currentDateTimeString_asMySQL()
+				,'updated_at'   => NULL
+				,'flag_delete'  => 0
+				,'DB'           => $dbConnection
 			]);
 		}
 

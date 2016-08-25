@@ -25,12 +25,12 @@
 		// static factory function to populate new object with desired base values
 		public static function createNewGallery($dbConnection) {
 			return new Gallery([
-				'gallery_id'   => 'NEW',
-				'gallery_name' => '',
-				'created_at'   => util_currentDateTimeString_asMySQL(),
-				'updated_at'   => util_currentDateTimeString_asMySQL(),
-				'flag_delete'  => 0,
-				'DB'           => $dbConnection
+				'gallery_id'   => 'NEW'
+				,'gallery_name' => ''
+				,'created_at'   => util_currentDateTimeString_asMySQL()
+				,'updated_at'   => util_currentDateTimeString_asMySQL()
+				,'flag_delete'  => 0
+				,'DB'           => $dbConnection
 			]);
 		}
 

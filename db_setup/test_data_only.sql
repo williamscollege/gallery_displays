@@ -10,24 +10,23 @@ USE `gallery_displays`;
 
 	SELECT * FROM `galleries`;
 	SELECT * FROM `monitors`;
-	SELECT * FROM `log_events`;
+	SELECT * FROM `log_events` ORDER BY `log_event_id` DESC;
 */
 
-/*CAREFUL - CREATE TEST DATA FOR DEVELOPMENT - NOT ON PROD SERVER!*/
+/*CAREFUL - CREATE TEST DATA ONLY FOR DEVELOPMENT - NOT ON PROD SERVER!*/
 /*galleries*/
-INSERT INTO `galleries` VALUES (1, 'sawyer', CURDATE(), NULL, 0);
-INSERT INTO `galleries` VALUES (2, 'wcma', CURDATE(), NULL, 0);
+INSERT INTO `galleries` VALUES (1, 'sawyer', CURTIME(), NULL, 0);
+INSERT INTO `galleries` VALUES (2, 'wcma', CURTIME(), NULL, 0);
 
 /*monitors*/
-INSERT INTO `monitors` VALUES (10, 1, 'sawyer_monitor_1', 'bulldozer_b.jpg', CURDATE(), NULL, 0);
-INSERT INTO `monitors` VALUES (11, 1, 'sawyer_monitor_2', 'earth-eaters-europe-Germany3.jpg', CURDATE(), NULL, 0);
-INSERT INTO `monitors` VALUES (12, 2, 'wcma_monitor_1', 'c-starwars-2.jpg', CURDATE(), NULL, 0);
-INSERT INTO `monitors` VALUES (13, 2, 'wcma_monitor_2', 'uyuni-bolivia-train-graveyard-infinitahighway-br-getty.jpg', CURDATE(), NULL, 0);
-INSERT INTO `monitors` VALUES (14, 2, 'wcma_monitor_3', 'rowboat-full.jpg', CURDATE(), NULL, 0);
+INSERT INTO `monitors` VALUES (10, 1, 'sawyer_monitor_1', 'bulldozer_b.jpg', CURTIME(), NULL, 0);
+INSERT INTO `monitors` VALUES (11, 1, 'sawyer_monitor_2', 'earth-eaters-europe-Germany3.jpg', CURTIME(), NULL, 0);
+INSERT INTO `monitors` VALUES (12, 2, 'wcma_monitor_1', 'c-starwars-2.jpg', CURTIME(), NULL, 0);
+INSERT INTO `monitors` VALUES (13, 2, 'wcma_monitor_2', 'uyuni-bolivia-train-graveyard-infinitahighway-br-getty.jpg', CURTIME(), NULL, 0);
+INSERT INTO `monitors` VALUES (14, 2, 'wcma_monitor_3', 'rowboat-full.jpg', CURTIME(), NULL, 0);
 
 UPDATE `monitors` SET flag_delete = TRUE WHERE monitor_id = 13;
 
-/*TODO*/
 /*log_events*/
--- INSERT INTO `log_events` VALUES (2000, 1, 10, 100, 'sawyer_monitor_1', 'bulldozer_b.jpg', CURDATE(), 0);
+INSERT INTO `log_events` VALUES (300, 1, 1, 'update_image_filenames', 'Successfully updated monitors.image_filename', '{"sawyer_monitor_1":"bulldozer_b.jpg","sawyer_monitor_2":"earth-eaters-europe-Germany3.jpg"}', '/GITHUB/gallery_displays/process_requests.php', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36', CURTIME());
 

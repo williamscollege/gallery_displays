@@ -117,7 +117,8 @@
 			if ($_SERVER['SERVER_NAME'] == 'localhost') {
 				try {
 					return new PDO("mysql:host=" . DB_SERVER . ";dbname=" . DB_NAME . ";port=3306", DB_USER, DB_PASS);
-				} catch (PDOException $e) {
+				}
+				catch (PDOException $e) {
 					// print "Error!: " . $e->getMessage() . "<br/>";
 					print "Error!: Program will die. <br/>";
 					die();
@@ -126,7 +127,8 @@
 		}
 		try {
 			return new PDO("mysql:host=" . DB_SERVER . ";dbname=" . DB_NAME . ";port=3306", DB_USER, DB_PASS);
-		} catch (PDOException $e) {
+		}
+		catch (PDOException $e) {
 			// print "Error!: " . $e->getMessage() . "<br/>";
 			print "Error!: Program will die. <br/>";
 			die();
@@ -434,21 +436,20 @@
 		return 0;
 	}
 
-	// create event log. [requires: user_id(int), flag_success(bool), event_action(varchar), event_action_id(int), event_action_target_type(varchar), event_note(varchar), event_dataset(varchar)]
-	function util_createEventLog($user_id = 0, $flag_success = FALSE, $event_action = "", $event_action_id = 0, $event_action_target_type = "", $event_note = "", $event_dataset = "", $DB) {
-		$eventlog = LogEvent::createNewEventLog($flag_success, $event_action, $event_action_id, $event_action_target_type, $event_note, $event_dataset, $DB);
+	// log event [requires: gallery_id(int), flag_success(bool), event_action(varchar), event_note(varchar), event_dataset(varchar)]
+	function util_createEventLog($gallery_id = 0, $flag_success = FALSE, $event_action = "", $event_note = "", $event_dataset = "", $DB) {
+		$eventlog = LogEvent::createNewEventLog($gallery_id, $flag_success, $event_action, $event_note, $event_dataset, $DB);
 		$eventlog->updateDb();
 		if (!$eventlog->matchesDb) {
 			$evtlog_event = new LogEvent([
-				'DB'                         => $DB
-				, 'flag_success'             => $flag_success
-				, 'event_action'             => $event_action
-				, 'event_action_id'          => $event_action_id
-				, 'event_action_target_type' => $event_action_target_type
-				, 'event_note'               => "Could not create event log for this action." . substr($event_note, 0, 1990)    // truncate to avoid exceeding db field limit
-				, 'event_dataset'            => substr($event_dataset, 0, 1990)                // truncate to avoid exceeding db field limit
-				, 'event_filepath'           => substr($_SERVER["REQUEST_URI"], 0, 990)        // truncate to avoid exceeding db field limit
-				, 'user_agent_string'        => substr($_SERVER["HTTP_USER_AGENT"], 0, 990)    // truncate to avoid exceeding db field limit
+				'DB'                  => $DB
+				, 'gallery_id'        => $gallery_id
+				, 'flag_success'      => $flag_success
+				, 'event_action'      => $event_action
+				, 'event_note'        => "Could not create event log for this action." . substr($event_note, 0, 1990)    // truncate to avoid exceeding db field limit
+				, 'event_dataset'     => substr($event_dataset, 0, 1990)                // truncate to avoid exceeding db field limit
+				, 'event_filepath'    => substr($_SERVER["REQUEST_URI"], 0, 990)        // truncate to avoid exceeding db field limit
+				, 'user_agent_string' => substr($_SERVER["HTTP_USER_AGENT"], 0, 990)    // truncate to avoid exceeding db field limit
 			]);
 			$evtlog_event->updateDb();
 		}
@@ -456,33 +457,34 @@
 	}
 
 
-	# Display errors and kill
+	# Display errors and offer manual link to homepage (so user can select correct monitor)
 	function display_error($msg = "") {
 		echo "<h3>" . $msg . "</h3>";
+		echo "<a href=\"" . APP_FOLDER . "/\" title=\"return home\">return home</a></p>";
 		exit;
 	}
 
 
 	// set a default image_filename for each monitor
-	function set_default_image_for_monitor($directory){
+	function set_default_image_for_monitor($directory) {
 		// create an array of files (and directories) from the directory
-		$files = scandir(dirname(__FILE__) . '/images/' . $directory);
+		$files = scandir(dirname(__FILE__) . APP_IMAGES_DIR. $directory);
 
 		// remove any non-filename subdirectories (i.e. "." or "..")
-		foreach ($files as $element=>$value){
-			if($value== "." | $value== ".." ){
+		foreach ($files as $element => $value) {
+			if ($value == "." | $value == "..") {
 				unset($files[$element]);
 			}
 		}
 
 		// randomly select an array index
-		$random_integer  = array_rand($files);
+		$random_integer = array_rand($files);
 
 		if (DEBUG_APP) {
 			echo "<h2>function: set_default_image_for_monitor:</h2>";
 			echo "array contains this many elements: " . count($files) . "<br />";
-			 util_prePrintR($files);
-			 util_prePrintR($files[$random_integer]);
+			util_prePrintR($files);
+			util_prePrintR($files[$random_integer]);
 		}
 
 		// return the filename value of the randomly selected element

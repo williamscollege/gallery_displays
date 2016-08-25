@@ -17,14 +17,13 @@
 	require_once(dirname(__FILE__) . '/app_setup.php');
 
 
-	# TODO - Consider putting this directory scan stuff into another file, to enable it to periodically run silently
-
-	# fetch galleries
+	# TODO - Consider putting this directory/database synchronization into another file, to enable it to periodically run silently
+	// fetch galleries
 	$galleries = Gallery::getAllFromDb([], $DB);
 
-	# read directory contents to create dynamic list of exhibition and monitor options
+	// read directory contents to create dynamic list of exhibition and monitor options
 	$array_directories = [];
-	if ($handle = opendir(dirname(__FILE__) . '/images/')) {
+	if ($handle = opendir(dirname(__FILE__) . APP_IMAGES_DIR)) {
 		//echo "Directory handle: $handle\n<br/><br/>";
 		while (FALSE !== ($directory_name = readdir($handle))) {
 			if ($directory_name != "." && $directory_name != "..") {
@@ -35,7 +34,7 @@
 		closedir($handle);
 	}
 
-	# fetch monitors
+	// fetch monitors
 	$all_monitors = Monitor::getAllFromDb([], $DB);
 
 	if (DEBUG_APP) {
@@ -44,17 +43,21 @@
 		util_prePrintR($all_monitors);
 	}
 
-	# check: are there new directories?
+	// do new directories exist?
 	foreach ($array_directories as $directory) {
-		$flag_name_exists = FALSE;
+		$flag_directory = FALSE;
+
 		// check if directory exists in db
 		foreach ($all_monitors as $monitor) {
 			if ($monitor->monitor_name == $directory) {
-				// found match in db
-				$flag_name_exists = TRUE;
+				// found directory match in db
+				$flag_directory = TRUE;
 			}
 		}
-		if (!$flag_name_exists) {
+
+		// directory does not exist in db
+		if (!$flag_directory) {
+
 			// check if this record was deleted (flag_delete = TRUE)
 			$deactivated_monitor = Monitor::getOneFromDb(['monitor_name' => $directory, 'flag_delete' => TRUE], $DB);
 
@@ -67,23 +70,26 @@
 				$deactivated_monitor->updateDb();
 
 				if (!$deactivated_monitor->matchesDb) {
-					// update record failed
-					$evt_note = "database error: could not update monitor record";
-
-					// create event log. [requires: flag_success(bool), event_action(varchar), event_action_id(int), event_action_target_type(varchar), event_note(varchar), event_dataset(varchar)]
-					// TODO: util_createEventLog($USER->user_id, FALSE, $action, $primaryID, "monitor_id", $results["notes"], print_r(json_encode($_REQUEST), TRUE), $DB);
+					// update failed
+					$evt_action = "error_db_update";
+					$evt_note   = "database error: could not reactivate pre-existing monitor record";
+					util_createEventLog($monitor->gallery_id, FALSE, $evt_action, $evt_note, print_r(json_encode($directory), TRUE), $DB);
+					display_error($evt_note);
 					exit;
 				}
 
-				// create event log. [requires: flag_success(bool), event_action(varchar), event_action_id(int), event_action_target_type(varchar), event_note(varchar), event_dataset(varchar)]
-				$evt_note = "Successfully updated monitor record " . $directory . "<br />";
-				// TODO: util_createEventLog($USER->user_id, TRUE, $action, $primaryID, "monitor_id", $evt_note, print_r(json_encode($_REQUEST), TRUE), $DB);
+				// log event
+				$evt_action = "reactivate_monitor";
+				$evt_note   = "Successfully reactivated monitor record " . $directory;
+				util_createEventLog($deactivated_monitor->gallery_id, TRUE, $evt_action, $evt_note, print_r(json_encode($_REQUEST), TRUE), $DB);
+
 				if (DEBUG_APP) {
 					echo $evt_note;
 				}
 			}
 			else {
 				// create record
+
 				// check if we need to create a gallery (parent group) for this new monitor
 				$directory_prefix = strchr($directory, "_", -1); // fetch prefix of directory (example: "wcma" is prefix of "wcma_monitor_1")
 				$new_gallery      = Gallery::getOneFromDb(['gallery_name' => $directory_prefix], $DB);
@@ -100,17 +106,19 @@
 						$deactivated_gallery->updateDb();
 
 						if (!$deactivated_gallery->matchesDb) {
-							// update record failed
-							$evt_note = "database error: could not update gallery record";
-
-							// create event log. [requires: flag_success(bool), event_action(varchar), event_action_id(int), event_action_target_type(varchar), event_note(varchar), event_dataset(varchar)]
-							// TODO: util_createEventLog($USER->user_id, FALSE, $action, $primaryID, "gallery_id", $results["notes"], print_r(json_encode($_REQUEST), TRUE), $DB);
+							// update failed
+							$evt_action = "error_db_update";
+							$evt_note   = "database error: could not reactivate pre-existing gallery record";
+							util_createEventLog($monitor->gallery_id, FALSE, $evt_action, $evt_note, print_r(json_encode($directory), TRUE), $DB);
+							display_error($evt_note);
 							exit;
 						}
 
-						// create event log. [requires: flag_success(bool), event_action(varchar), event_action_id(int), event_action_target_type(varchar), event_note(varchar), event_dataset(varchar)]
-						$evt_note = "Successfully updated gallery record: " . $directory_prefix . "<br/>";
-						// TODO: util_createEventLog($USER->user_id, TRUE, $action, $primaryID, "gallery_id", $evt_note, print_r(json_encode($_REQUEST), TRUE), $DB);
+						// log event
+						$evt_action = "reactivate_gallery";
+						$evt_note   = "Successfully reactivated gallery record " . $directory_prefix;
+						util_createEventLog($deactivated_gallery->gallery_id, TRUE, $evt_action, $evt_note, print_r(json_encode($_REQUEST), TRUE), $DB);
+
 						if (DEBUG_APP) {
 							echo $evt_note;
 						}
@@ -122,17 +130,19 @@
 						$new_gallery->updateDb();
 
 						if (!$new_gallery->matchesDb) {
-							// update record failed
-							$evt_note = "database error: could not create gallery record";
-
-							// create event log. [requires: flag_success(bool), event_action(varchar), event_action_id(int), event_action_target_type(varchar), event_note(varchar), event_dataset(varchar)]
-							// TODO: util_createEventLog($USER->user_id, FALSE, $action, $primaryID, "gallery_id", $results["notes"], print_r(json_encode($_REQUEST), TRUE), $DB);
+							// update failed
+							$evt_action = "error_db_create";
+							$evt_note   = "database error: could not create gallery record";
+							util_createEventLog($new_gallery->gallery_id, FALSE, $evt_action, $evt_note, print_r(json_encode($directory), TRUE), $DB);
+							display_error($evt_note);
 							exit;
 						}
 
-						// create event log. [requires: flag_success(bool), event_action(varchar), event_action_id(int), event_action_target_type(varchar), event_note(varchar), event_dataset(varchar)]
-						$evt_note = "Successfully created gallery record: " . $directory_prefix . "<br/>";
-						// TODO: util_createEventLog($USER->user_id, TRUE, $action, $primaryID, "gallery_id", $evt_note, print_r(json_encode($_REQUEST), TRUE), $DB);
+						// log event
+						$evt_action = "create_gallery";
+						$evt_note   = "Successfully created gallery record: " . $directory_prefix;
+						util_createEventLog($new_gallery->gallery_id, TRUE, $evt_action, $evt_note, print_r(json_encode($_REQUEST), TRUE), $DB);
+
 						if (DEBUG_APP) {
 							echo $evt_note;
 						}
@@ -147,17 +157,19 @@
 				$new_monitor->updateDb();
 
 				if (!$new_monitor->matchesDb) {
-					// update record failed
-					$evt_note = "database error: could not create monitor record";
-
-					// create event log. [requires: flag_success(bool), event_action(varchar), event_action_id(int), event_action_target_type(varchar), event_note(varchar), event_dataset(varchar)]
-					// TODO: util_createEventLog($USER->user_id, FALSE, $action, $primaryID, "monitor_id", $results["notes"], print_r(json_encode($_REQUEST), TRUE), $DB);
+					// update failed
+					$evt_action = "error_db_create";
+					$evt_note   = "database error: could not create monitor record";
+					util_createEventLog($new_monitor->gallery_id, FALSE, $evt_action, $evt_note, print_r(json_encode($directory), TRUE), $DB);
+					display_error($evt_note);
 					exit;
 				}
 
-				// create event log. [requires: flag_success(bool), event_action(varchar), event_action_id(int), event_action_target_type(varchar), event_note(varchar), event_dataset(varchar)]
-				$evt_note = "Successfully created monitor record: " . $directory . "<br/>";
-				// TODO: util_createEventLog($USER->user_id, TRUE, $action, $primaryID, "monitor_id", $evt_note, print_r(json_encode($_REQUEST), TRUE), $DB);
+				// log event
+				$evt_action = "create_monitor";
+				$evt_note   = "Successfully created monitor record: " . $directory;
+				util_createEventLog($new_gallery->gallery_id, TRUE, $evt_action, $evt_note, print_r(json_encode($_REQUEST), TRUE), $DB);
+
 				if (DEBUG_APP) {
 					echo $evt_note;
 				}
@@ -165,7 +177,48 @@
 		}
 	}
 
-	// TODO - DO REVERSE PROCESS (of above) TO SET ANY MISSING FOLDERS TO BE SOFT DELETED
+	// NOW, DO THE REVERSE PROCESS
+	# fetch galleries
+	$galleries = Gallery::getAllFromDb([], $DB);
+
+	# fetch monitors
+	$all_monitors = Monitor::getAllFromDb([], $DB);
+
+	// have any directories been removed?
+	foreach ($all_monitors as $monitor) {
+		$flag_db_monitor_name = FALSE;
+
+		// check if db_monitor_name exists in directory structure
+		foreach ($array_directories as $directory) {
+			if ($monitor->monitor_name == $directory) {
+				// found monitor_name match with actual directory
+				$flag_db_monitor_name = TRUE;
+			}
+		}
+
+		// db_monitor_name does not exist in directory structure
+		if (!$flag_db_monitor_name) {
+			// soft-delete this record as it no longer matches, or represents, the actual directory structure
+			// update record
+			$monitor->flag_delete = 1;
+			$monitor->updated_at  = util_currentDateTimeString_asMySQL();
+			$monitor->updateDb();
+
+			if (!$monitor->matchesDb) {
+				// update failed
+				$evt_action = "error_delete_monitor";
+				$evt_note   = "database error: could not delete monitor record";
+				util_createEventLog($monitor->gallery_id, FALSE, $evt_action, $evt_note, print_r(json_encode($monitor->monitor_name), TRUE), $DB);
+				display_error($evt_note);
+				exit;
+			}
+
+			// log event
+			$evt_action = "delete_monitor";
+			$evt_note   = "Successfully deleted monitor record: " . $monitor->monitor_name;
+			util_createEventLog($monitor->gallery_id, TRUE, $evt_action, $evt_note, print_r(json_encode($_REQUEST), TRUE), $DB);
+		}
+	}
 
 ?>
 
@@ -186,7 +239,7 @@
 	<!-- jQuery: Plugins -->
 	<!-- local JS -->
 </head>
-<body style="background-color: mediumpurple; margin: 0 10px;">
+<body class="setup_theme">
 
 <h1>Setup: Please identify this monitor from the galleries below:</h1>
 
@@ -198,17 +251,20 @@
 		// load monitors for this gallery
 		$gallery->loadMonitors();
 
-		// display gallery group
-		echo "<div style=\"width:100%; float:left\">";
-		echo "<h2 class=\"uppercase\">" . $gallery->gallery_name . "</h2>";
+		// only display a gallery group if it contains active monitors
+		if (count($gallery->monitors) > 0){
+			// display gallery group
+			echo "<div style=\"width:100%; float:left\">";
+			echo "<h2 class=\"uppercase\">" . $gallery->gallery_name . "</h2>";
 
-		// display monitors within each gallery
-		foreach ($gallery->monitors as $monitor) {
-			echo "<div class=\"background_monitor\">";
-			echo "<p class=\"monitor_text\"><a href=\"" . APP_FOLDER . "/index.php?id=" . $monitor->monitor_id . "\" title=\"" . $monitor->monitor_name . "\"/>" . $monitor->monitor_name . "</a></p>";
-			echo "</div>";
+			// display monitors within each gallery
+			foreach ($gallery->monitors as $monitor) {
+				echo "<div class=\"icon_monitor\">";
+				echo "<p class=\"icon_monitor_text\"><a href=\"" . APP_FOLDER . "/index.php?id=" . $monitor->monitor_id . "\" title=\"" . $monitor->monitor_name . "\"/>" . $monitor->monitor_name . "</a></p>";
+				echo "</div>";
+			}
+			echo '</div>';
 		}
-		echo '</div>';
 	}
 ?>
 

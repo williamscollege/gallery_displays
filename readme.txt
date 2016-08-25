@@ -1,3 +1,32 @@
+TODO 1) REMOVE unused code from util.php
+
+TODO 2) sync multiple monitors to run "updates" based on time of webserver (or Atomic Clock) to have all in same rotation pattern OR use small time frame as refresh integer
+ - THIS ONE: http://stackoverflow.com/questions/9254730/get-current-time-of-webserver
+ - https://www.experts-exchange.com/questions/21731051/Trying-to-get-Atomic-Time-via-PHP-or-Javascript.html
+ - maybe wait until seconds reach 00 (once, twice?), or: how long does it take to push restart on 5 Chrome Stick monitors?
+ - http://www.kloth.net/software/timesrv1.php
+
+-----------------------------------
+Summary
+-----------------------------------
+
+User Proofing (Pretty Failsafes)
+	-
+
+Image Preparation
+
+	Image Folders
+	- Standard naming and sizes
+
+Requirements
+	- mysql database named 'gallery_displays'. (the script will create the database)
+	- configuration settings: authentication.cfg.php
+	- web server and permission to create new image subdirectories and upload images
+	- Chrome Sticks: plus one USB keyboard (Apple keyboards have a handy USB port for a USB mouse) to configure your Chrome Sticks
+	- monitors or ipads or any kind of device that has an Internet connection (vertical or horizontal)
+
+
+
 -----------------------------------
 Gallery Displays
 -----------------------------------
@@ -23,10 +52,22 @@ Image Preparation
 		wcma_monitor_3
 	Images must be one of the following types: .jpg|.png|.gif
 
+	 * Documentation:
+	 * 1) This application expects the following name-value pairs to be submitted as a single form.
+	 * 2) The hidden INPUT NAME must exactly match the image subdirectory name.
+	 * ** standard format: "gallery_monitor_number" (examples: sawyer_monitor_1, sawyer_monitor_2, wcma_monitor_1, wcma_monitor_2, wcma_monitor_3)
+	 * ** the gallery name is derrived from the format above.
+	 * ** you must use underscores in your images subdirectory names
+	 * ** the trailing value of your images subdirectory names must be an integer (a number)
+	 * 3) The hidden INPUT VALUE must be the filename (including extension) of the requested image
+	 * ** standard format: "image_filename.extension" (examples: c-starwars-2.jpg, Yoda_SWSB.png)
+
 
 -----------------------------------
-How to add additional gallery monitors
+How to add (or remove) additional gallery monitors
 -----------------------------------
+	This application will dynamically read, write and synchronize image subdirectories to the database, and vice versa.
+	This means all you have to do is add or remove image directories to match what you want to display in your gallery.
 
 
 -----------------------------------
@@ -65,4 +106,9 @@ How to add another monitor and related images
 -----------------------------------
 
 
-
+-----------------------------------
+General Information
+-----------------------------------
+- written in PHP using object oriented programming, PDO, and a tiny MySQL backend database
+- detailed log files based on user actions, both submissions and trapped errors
+- log files include submitted form (JSON), filepath, and browser information

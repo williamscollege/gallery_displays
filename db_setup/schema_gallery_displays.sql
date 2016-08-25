@@ -16,7 +16,7 @@ SAVE FOR TESTING ONLY:
 
 	SELECT * FROM `galleries`;
 	SELECT * FROM `monitors`;
-	SELECT * FROM `log_events`;
+	SELECT * FROM `log_events` ORDER BY `log_event_id` DESC;
 */
 
 # ----------------------------
@@ -79,20 +79,19 @@ CREATE TABLE IF NOT EXISTS `monitors` (
 	COMMENT = 'Monitors belong to a parent gallery grouping. Each monitor has one associated image.';
 
 CREATE TABLE IF NOT EXISTS `log_events` (
-	`log_event_id`             INT UNSIGNED  NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	`gallery_id`               INT           NOT NULL DEFAULT 0,
-	`monitors`                 VARCHAR(255)  NOT NULL,
-	`images`                   VARCHAR(255)  NOT NULL,
-	`flag_success`             TINYINT(1) UNSIGNED    DEFAULT 1,
-	`event_action`             VARCHAR(255)  NULL,
-	`event_action_id`          BIGINT(10) UNSIGNED    DEFAULT NULL,
-	`event_action_target_type` VARCHAR(255)  NULL,
-	`event_note`               VARCHAR(2000) NULL,
-	`event_dataset`            VARCHAR(2000) NULL,
-	`event_filepath`           VARCHAR(1000) NULL,
-	`user_agent_string`        VARCHAR(1000) NULL,
-	`event_datetime`           TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	INDEX `log_event_id` (`log_event_id`)
+	`log_event_id`      INT UNSIGNED  NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	`gallery_id`        INT           NOT NULL DEFAULT 0,
+	`flag_success`      TINYINT(1) UNSIGNED    DEFAULT 1,
+	`event_action`      VARCHAR(255)  NULL,
+	`event_note`        VARCHAR(2000) NULL,
+	`event_dataset`     VARCHAR(2000) NULL,
+	`event_filepath`    VARCHAR(1000) NULL,
+	`user_agent_string` VARCHAR(1000) NULL,
+	`event_datetime`    TIMESTAMP     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	INDEX `log_event_id` (`log_event_id`),
+	INDEX `gallery_id` (`gallery_id`),
+	INDEX `flag_success` (`flag_success`),
+	INDEX `event_action` (`event_action`)
 )
 	ENGINE = innodb
 	DEFAULT CHARACTER SET = utf8

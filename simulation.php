@@ -1,3 +1,20 @@
+<?php
+	/**
+	 * Project: Gallery Displays
+	 * Purpose: File Overview
+	 * Documentation:
+	 * 1) This application expects the following name-value pairs to be submitted as a single form.
+	 * 2) The hidden INPUT NAME must exactly match the image subdirectory name.
+	 * ** standard format: "gallery_monitor_number" (examples: sawyer_monitor_1, sawyer_monitor_2, wcma_monitor_1, wcma_monitor_2, wcma_monitor_3)
+	 * ** the gallery name is derrived from the format above.
+	 * ** you must use underscores in your images subdirectory names
+	 * ** the trailing value of your images subdirectory names must be an integer (a number)
+	 * 3) The hidden INPUT VALUE must be the filename (including extension) of the requested image
+	 * ** standard format: "image_filename.extension" (examples: c-starwars-2.jpg, Yoda_SWSB.png)
+	 * Author: David Keiser-Clark, Williams College
+	 */
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,15 +39,6 @@
 	</style>
 </head>
 <body>
-
-<!--
-	Documentation: Expected form name-value pairs
-	- name:		gallery_monitor_number (must match image subdirectory name)
-		- examples: sawyer_monitor_1, sawyer_monitor_2, wcma_monitor_1, wcma_monitor_2, wcma_monitor_3
-	- value:	image_filename.extension
-		- examples: c-starwars-2.jpg, Yoda_SWSB.png
--->
-
 <!-- DEMO #1 -->
 <form name="demo1" action="process_requests.php" method="post" style="padding: 5px;">
 	<input type="hidden" name="wcma_monitor_1" value="20140808-OUTDOORS-slide-33A9-superJumbo.jpg" />

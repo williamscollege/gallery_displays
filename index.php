@@ -10,21 +10,6 @@
 
 	require_once(dirname(__FILE__) . '/app_setup.php');
 
-	// TODO
-	// sync multiple monitors to run "updates" based on time of webserver (or Atomic Clock) to have all in same rotation pattern OR use small time frame as refresh integer
-	// - THIS ONE: http://stackoverflow.com/questions/9254730/get-current-time-of-webserver
-	// - https://www.experts-exchange.com/questions/21731051/Trying-to-get-Atomic-Time-via-PHP-or-Javascript.html
-	// - maybe wait until seconds reach 00 (once, twice?), or: how long does it take to push restart on 5 Chrome Stick monitors?
-	// - http://www.kloth.net/software/timesrv1.php
-
-	// TODO - only log when new images are processed
-	// TODO - REMOVE unused code from util.php
-	// TODO - implement logs as json summaries
-	// TODO - add dir scan remove (if dir is removed, then soft-delete that monitor from db)
-	// TODO - on setup page: if gallery exists with 0 monitors, then skip (do not display)
-
-	require_once("util.php");
-
 
 	// ***************************
 	// set variables
@@ -41,6 +26,9 @@
 	}
 	else {
 		// need to identify this monitor from available options
+		$evt_action = "error_lacks_querystring";
+		$evt_note   = "error: lacks querystring. exiting.";
+		util_createEventLog(0, FALSE, $evt_action, $evt_note, print_r(json_encode($_REQUEST), TRUE), $DB);
 		header("location: setup_gallery_monitors.php");
 		exit;
 	}

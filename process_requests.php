@@ -1,8 +1,10 @@
 <?php
 	/**
-	 * File Overview:
-	 * fetch image from db based on querystring integer
+	 * Project: Gallery Displays
+	 * Purpose: Fetch image from db based on querystring integer
+	 * Author: David Keiser-Clark, Williams College
 	 */
+
 
 	// ***************************
 	// required files
@@ -21,14 +23,12 @@
 		util_prePrintR($monitors);
 	}
 
-	// basic security: cycle through each named form element
+	// basic security: iterate through form elements to confirm that input names match known monitors in db
 	foreach ($_REQUEST as $input_name => $input_value) {
 		if (DEBUG_APP) {
 			echo "input_name: " . $input_name . "<br/>";
 			echo "input_value: " . $input_value . "<br/>";
 		}
-
-		$last_monitor_name = $input_name;
 
 		// set default condition
 		$flag_exists = FALSE;
@@ -42,15 +42,22 @@
 		}
 		// check name: expected to be existing directory name within DB, else abort
 		if (!$flag_exists) {
-			echo "Error: unexpected directory name! exiting.";
+			$evt_action = "error_directory_name";
+			$evt_note   = "error: unexpected directory name. exiting.";
+			util_createEventLog(0, FALSE, $evt_action, $evt_note, print_r(json_encode($_REQUEST), TRUE), $DB);
+			display_error($evt_note);
 			exit;
 		}
 		// check value: expected to be image extension, else abort
 		if (!preg_match("/.jpg|.png|.gif/i", $input_value)) {
-			display_error("Unexpected value received. exiting.");
+			$evt_action = "error_image_type";
+			$evt_note   = "error: unexpected image type. exiting.";
+			util_createEventLog(0, FALSE, $evt_action, $evt_note, print_r(json_encode($_REQUEST), TRUE), $DB);
+			display_error($evt_note);
 			exit;
 		}
 	}
+
 
 	// iterate through form values: update the image for each named monitor in db
 	foreach ($_REQUEST as $input_name => $input_value) {
@@ -58,23 +65,25 @@
 		$new_image = Monitor::getOneFromDb(['monitor_name' => $input_name], $DB);
 
 		$new_image->image_filename = $input_value;
-		$new_image->updated_at  = util_currentDateTimeString_asMySQL();
+		$new_image->updated_at     = util_currentDateTimeString_asMySQL();
 		$new_image->updateDb();
 
 		if (!$new_image->matchesDb) {
-			// update record failed
-			$evt_note = "database error: could not update the image_filename for this monitor record";
-
-			// create event log. [requires: flag_success(bool), event_action(varchar), event_action_id(int), event_action_target_type(varchar), event_note(varchar), event_dataset(varchar)]
-			// TODO: util_createEventLog(gallery_id, FALSE, $action, $primaryID, "monitor_id", $results["notes"], print_r(json_encode($_REQUEST), TRUE), $DB);
+			// update failed
+			$evt_action = "error_db_update";
+			$evt_note   = "database error: could not update the image_filename (" . $input_value . ") for monitor_id (" . $new_image->monitor_id . ")";
+			util_createEventLog($new_image->gallery_id, FALSE, $evt_action, $evt_note, print_r(json_encode($_REQUEST), TRUE), $DB);
+			display_error($evt_note);
 			exit;
 		}
 	}
 
-	// create event log. [requires: flag_success(bool), event_action(varchar), event_action_id(int), event_action_target_type(varchar), event_note(varchar), event_dataset(varchar)]
-	//	$evt_note = "Successfully updated monitor record<br />";
-	// TODO: util_createEventLog(gallery_id, TRUE, $action, $primaryID, "monitor_id", $evt_note, print_r(json_encode($_REQUEST), TRUE), $DB);
+	// log event
+	$evt_action = "update_image_filenames";
+	$evt_note   = "Successfully updated monitors.image_filename";
+	util_createEventLog($new_image->gallery_id, TRUE, $evt_action, $evt_note, print_r(json_encode($_REQUEST), TRUE), $DB);
+
 	if (DEBUG_APP) {
-		//	echo $evt_note;
+		util_prePrintR($evt_note);
 	}
 

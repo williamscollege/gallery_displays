@@ -3,7 +3,7 @@
 	# ---------------------------
 	# configuration settings file
 	# ---------------------------
-	define('DEBUG_APP', TRUE);
+	define('DEBUG_APP', TRUE); // or FALSE
 
 	# ---------------------------
 	# Institution
@@ -14,6 +14,7 @@
 	# Application folder path
 	# ---------------------------
 	define('APP_STR',       'folder/subdirectory');
+	define('APP_IMAGES_DIR', 'images_directory');
 	define('APP_FOLDER',    'http://localhost/'.APP_STR); // Use HTTPS for live/staging servers!
 	define('APP_ROOT_PATH', '/' . APP_STR);
 

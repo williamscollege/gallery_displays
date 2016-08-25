@@ -3,7 +3,7 @@ body {
 	padding: 0;
 }
 
-#showImage{
+#showImage {
 	margin: 0;
 	padding: 0;
 }
@@ -12,12 +12,17 @@ IMG {
 	display: block;
 }
 
-.uppercase{
+.uppercase {
 	text-transform: uppercase;
 }
 
-.background_monitor{
-	background-image: url(icon_empty_monitor.png);
+.setup_theme {
+	background-color: mediumpurple;
+	margin: 0 10px;
+}
+
+.icon_monitor {
+	background-image: url(icon_empty_monitor_transparent.png);
 	background-repeat: no-repeat;
 	width: 200px;
 	height: 122px;
@@ -26,11 +31,11 @@ IMG {
 	background-color: white;
 }
 
-.background_monitor:hover{
+.icon_monitor:hover {
 	background-color: yellowgreen;
 }
 
-.monitor_text{
+.icon_monitor_text {
 	text-align: center;
 	padding-top: 33px;
 	font-size: large;
