@@ -12,6 +12,10 @@ Summary
 
 User Proofing (Pretty Failsafes)
 	-
+	fullscreen view includes:
+	- scrollbars are hidden
+	- cursor is hidden
+	- images display no hover information (alt/title)
 
 Image Preparation
 
@@ -41,7 +45,7 @@ Gallery Displays
 -----------------------------------
 Image Preparation
 -----------------------------------
-	Resolution of each image should match, exactly, the monitor it will be displayed on.
+	Resolution of each image should match, exactly, the monitor it will be displayed on. Example: 1920px by 1080px, 1080px by 1920px
 	Each gallery image folder will correspond to a monitor within that gallery
 	Image folder naming convention: gallery_monitor_number
 	Examples:
@@ -59,6 +63,7 @@ Image Preparation
 	 * ** the gallery name is derrived from the format above.
 	 * ** you must use underscores in your images subdirectory names
 	 * ** the trailing value of your images subdirectory names must be an integer (a number)
+	 * ** a separate thumbnails directory exists if you want to place thumbnails (i.e. for your ios app) online
 	 * 3) The hidden INPUT VALUE must be the filename (including extension) of the requested image
 	 * ** standard format: "image_filename.extension" (examples: c-starwars-2.jpg, Yoda_SWSB.png)
 

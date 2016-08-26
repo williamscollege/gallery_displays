@@ -12,16 +12,37 @@ IMG {
 	display: block;
 }
 
+.text_large {
+	font-size: x-large;
+	font-weight: bold;
+}
+
 .uppercase {
 	text-transform: uppercase;
 }
 
 .setup_theme {
-	background-color: mediumpurple;
+	background-color: #8AB840;
 	margin: 0 10px;
 }
 
-.icon_monitor {
+.setup_step {
+	width: 100%;
+	float: left;
+}
+
+.indent {
+	margin-left: 25px;
+}
+
+.monitor_row {
+	width: 100%;
+	float: left;
+	margin-left: 25px;
+	border-bottom: solid black 1px;
+}
+
+.monitor_item {
 	background-image: url(icon_empty_monitor_transparent.png);
 	background-repeat: no-repeat;
 	width: 200px;
@@ -31,11 +52,11 @@ IMG {
 	background-color: white;
 }
 
-.icon_monitor:hover {
-	background-color: yellowgreen;
+.monitor_item:hover {
+	background-color: #CC7518;
 }
 
-.icon_monitor_text {
+.monitor_text {
 	text-align: center;
 	padding-top: 33px;
 	font-size: large;

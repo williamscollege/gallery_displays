@@ -53,27 +53,30 @@
 	<!-- local JS -->
 
 	<script>
-		//
 		$(window).resize(function () {
-			if ((window.fullScreen) || (window.innerWidth == screen.width && window.innerHeight == screen.height)) {
+			if ((window.fullScreen) || (window.innerWidth == screen.width || window.innerHeight == screen.height)) {
 				// fullscreen mode: hide the scrollbars
-				$("html").css("overflow", "hidden");
+				$("html").css("overflow", "hidden").css("cursor","none");
+				// alert("fullscreen mode:" + window.innerWidth + " is " + screen.width + ", " + window.innerHeight + " is " + screen.height)
 			}
 			else {
 				// not fullscreen: show scrollbars as per usual
 				$("html").css("overflow", "auto");
+				// alert("not fullscreen:" + window.innerWidth + " not " + screen.width + ", " + window.innerHeight + " not " + screen.height)
 			}
 		});
 
 		$(document).ready(function () {
 			// trigger the function when the page loads
-			$(window).resize();
+			//$(window).resize(); // removed as it CAUSES HAVOC on Chrome Sticks, while the following line just works as it should
+			$("html").css("overflow", "hidden").css("cursor","none");
 
 			// load new image from server every X seconds, if one exists
 			function fetchImage() {
 				$('#showImage').load('fetch_image.php?id=<?php echo $monitor_id; ?>', function () {
 					$(this).unwrap();
 				});
+				// $(window).resize(); // for debugging only
 			}
 
 			// set delay interval as milliseconds

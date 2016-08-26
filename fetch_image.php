@@ -47,7 +47,7 @@
 	}
 
 	// output result
-	echo "<img src=\"" . APP_FOLDER . APP_IMAGES_DIR . $monitor->monitor_name . "/" . $monitor->image_filename . "\" alt=\"" . $monitor->image_filename . "\" title=\"" . $monitor->image_filename . "\" />";
+	echo "<img src=\"" . APP_FOLDER . APP_IMAGES_DIR . $monitor->monitor_name . "/" . $monitor->image_filename . "\" alt=\"\" title=\"\" />";
 
 
 

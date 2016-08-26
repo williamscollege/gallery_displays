@@ -241,9 +241,18 @@
 </head>
 <body class="setup_theme">
 
-<h1>Setup: Please identify this monitor from the galleries below:</h1>
-
 <?php
+/*	echo "<div class=\"setup_step\">";
+	echo "<span class=\"text_large\">1. Select Mode: </span>";
+	echo "<p class=\"indent\"><a href=\"" . APP_FOLDER . "/index.php?id=" . $monitor->monitor_id . "\" title=\"" . $monitor->monitor_name . "\"/>Gallery</a> (user interactive)";
+	echo "<p class=\"indent\"><a href=\"" . APP_FOLDER . "/index.php?id=" . $monitor->monitor_id . "\" title=\"" . $monitor->monitor_name . "\"/>Slideshow</a> (random, NOT user interactive)";
+	echo "<br /><br />";
+	echo "</div>";*/
+
+	echo "<div class=\"setup_step\">";
+	echo "<span class=\"text_large\">Select this monitor from the options below:</span>";
+	echo "</div>";
+
 	// fetch galleries
 	$galleries = Gallery::getAllFromDb([], $DB);
 
@@ -254,13 +263,13 @@
 		// only display a gallery group if it contains active monitors
 		if (count($gallery->monitors) > 0){
 			// display gallery group
-			echo "<div style=\"width:100%; float:left\">";
-			echo "<h2 class=\"uppercase\">" . $gallery->gallery_name . "</h2>";
+			echo "<div class=\"monitor_row\">";
+			echo "<h3>Gallery: <span  class=\"uppercase\">&quot;" . $gallery->gallery_name . "&quot;</span></h3>";
 
 			// display monitors within each gallery
 			foreach ($gallery->monitors as $monitor) {
-				echo "<div class=\"icon_monitor\">";
-				echo "<p class=\"icon_monitor_text\"><a href=\"" . APP_FOLDER . "/index.php?id=" . $monitor->monitor_id . "\" title=\"" . $monitor->monitor_name . "\"/>" . $monitor->monitor_name . "</a></p>";
+				echo "<div class=\"monitor_item\">";
+				echo "<p class=\"monitor_text\"><a href=\"" . APP_FOLDER . "/index.php?id=" . $monitor->monitor_id . "\" title=\"" . $monitor->monitor_name . "\"/>" . $monitor->monitor_name . "</a></p>";
 				echo "</div>";
 			}
 			echo '</div>';
