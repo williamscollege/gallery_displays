@@ -35,6 +35,10 @@ IMG {
 	margin-left: 25px;
 }
 
+.institution_color {
+	color: #512698;
+}
+
 .monitor_row {
 	width: 100%;
 	float: left;

@@ -46,6 +46,7 @@
 	</style>
 </head>
 <body>
+<h1>WCMA: Accesson Number Project</h1>
 <!-- DEMO #1 -->
 <form name="demo1" action="process_requests.php" method="post" style="padding: 5px;">
 	<input type="hidden" name="wcma_monitor_1" value="62_91.jpg" />
@@ -55,7 +56,7 @@
 	<div class="simulation_div_outer">
 		<div class="simulation_div_inner">
 			<h3>iPad demo: WCMA</h3><br />
-			<p align="center"><input type="submit" id="submit_button" value="Submit" style="font-weight: bold; font-size: xx-large" /></p>
+			<p align="center"><input type="submit" id="submit_button" value="Submit" style="font-weight: bold; font-size: xx-large; background-color: deeppink;" /></p>
 		</div>
 		<div class="simulation_div_inner">
 			<em>wcma_monitor_1</em><br />
@@ -84,7 +85,7 @@
 	<div class="simulation_div_outer">
 		<div class="simulation_div_inner">
 			<h3>iPad demo: WCMA</h3><br />
-			<p align="center"><input type="submit" id="submit_button" value="Submit" style="font-weight: bold; font-size: xx-large" /></p>
+			<p align="center"><input type="submit" id="submit_button" value="Submit" style="font-weight: bold; font-size: xx-large; background-color: deeppink;" /></p>
 		</div>
 		<div class="simulation_div_inner">
 			<em>wcma_monitor_1</em><br />
@@ -113,7 +114,7 @@
 	<div class="simulation_div_outer">
 		<div class="simulation_div_inner">
 			<h3>iPad demo: WCMA</h3><br />
-			<p align="center"><input type="submit" id="submit_button" value="Submit" style="font-weight: bold; font-size: xx-large" /></p>
+			<p align="center"><input type="submit" id="submit_button" value="Submit" style="font-weight: bold; font-size: xx-large; background-color: deeppink;" /></p>
 		</div>
 		<div class="simulation_div_inner">
 			<em>wcma_monitor_1</em><br />
@@ -133,7 +134,7 @@
 	</div>
 </form>
 
-
+<h1>Sawyer CET: People, Places and Things</h1>
 <!-- DEMO #4 -->
 <form name="demo4" action="process_requests.php" method="post" style="padding: 5px;">
 	<input type="hidden" name="sawyer_monitor_1" value="bulldozer_b.jpg" />
@@ -143,7 +144,7 @@
 	<div class="simulation_div_outer">
 		<div class="simulation_div_inner">
 			<h3>iPad demo: Sawyer</h3><br />
-			<p align="center"><input type="submit" id="submit_button" value="Submit" style="font-weight: bold; font-size: xx-large" /></p>
+			<p align="center"><input type="submit" id="submit_button" value="Submit" style="font-weight: bold; font-size: xx-large; background-color: deeppink;" /></p>
 		</div>
 		<div class="simulation_div_inner">
 			<em>sawyer_monitor_1</em><br />
@@ -172,7 +173,7 @@
 	<div class="simulation_div_outer">
 		<div class="simulation_div_inner">
 			<h3>iPad demo: Sawyer</h3><br />
-			<p align="center"><input type="submit" id="submit_button" value="Submit" style="font-weight: bold; font-size: xx-large" /></p>
+			<p align="center"><input type="submit" id="submit_button" value="Submit" style="font-weight: bold; font-size: xx-large; background-color: deeppink;" /></p>
 		</div>
 		<div class="simulation_div_inner">
 			<em>sawyer_monitor_1</em><br />
@@ -201,7 +202,7 @@
 	<div class="simulation_div_outer">
 		<div class="simulation_div_inner">
 			<h3>iPad demo: Sawyer</h3><br />
-			<p align="center"><input type="submit" id="submit_button" value="Submit" style="font-weight: bold; font-size: xx-large" /></p>
+			<p align="center"><input type="submit" id="submit_button" value="Submit" style="font-weight: bold; font-size: xx-large; background-color: deeppink;" /></p>
 		</div>
 		<div class="simulation_div_inner">
 			<em>sawyer_monitor_1</em><br />
