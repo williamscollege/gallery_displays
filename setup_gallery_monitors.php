@@ -232,7 +232,6 @@
 	<meta charset="utf-8">
 	<!-- CSS: Framework -->
 	<!-- CSS: Plugins -->
-	<link rel="stylesheet" href="<?php echo PATH_JQUERYUI_CSS; ?>" />
 	<link rel="stylesheet" href="<?php echo APP_ROOT_PATH; ?>/css/custom.css" type="text/css" media="all">
 	<!-- jQuery: Framework -->
 	<script src="<?php echo PATH_JQUERY_JS; ?>"></script>
@@ -250,7 +249,7 @@
 	echo "</div>";*/
 
 	echo "<div class=\"setup_step\">";
-	echo "<span class=\"text_large\">Select this monitor from the options below:</span>";
+	echo "<span class=\"text_large\">Identify this monitor by clicking the corresponding link below:</span>";
 	echo "</div>";
 
 	// fetch galleries

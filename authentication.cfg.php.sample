@@ -31,8 +31,8 @@
 	# ---------------------------
 	# ***** Google CDN: https://developers.google.com/speed/libraries/devguide#jquery
 	define('PATH_JQUERY_JS', '//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js');
-	define('PATH_JQUERYUI_JS', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js');
-	define('PATH_JQUERYUI_CSS', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/dot-luv/jquery-ui.min.css');
+	# define('PATH_JQUERYUI_JS', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js');
+	# define('PATH_JQUERYUI_CSS', '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/dot-luv/jquery-ui.min.css');
 
 	# ---------------------------
 	# Local File Paths

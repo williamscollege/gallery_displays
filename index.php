@@ -3,7 +3,7 @@
 	 * Project: Gallery Displays
 	 * Purpose: Enable one or more monitors to update their display with independent content based on user choices
 	 * Purpose: Super easy to add new, distinct exhibitions in other locations
-	 * Instructions: see readme.txt
+	 * Instructions: see README.md
 	 * Author: David Keiser-Clark, Williams College
 	 */
 
@@ -14,6 +14,8 @@
 	// ***************************
 	// set variables
 	// ***************************
+	// TODO: Create galleries.delay_seconds integer field with default=3. Change manually; would enable different galleries to have independent refresh rates
+	// TODO: Create galleries.display_mode (user or random) varchar(255) field with default='user'. Change manually; would enable different display modes
 	define('DELAY_SECONDS', 3);
 
 
@@ -45,7 +47,6 @@
 	<meta http-equiv="refresh" content="7200"> <!-- refresh the whole thing every 2 hours to pick up any structural changes -->
 	<!-- CSS: Framework -->
 	<!-- CSS: Plugins -->
-	<link rel="stylesheet" href="<?php echo PATH_JQUERYUI_CSS; ?>" />
 	<link rel="stylesheet" href="<?php echo APP_ROOT_PATH; ?>/css/custom.css" type="text/css" media="all">
 	<!-- jQuery: Framework -->
 	<script src="<?php echo PATH_JQUERY_JS; ?>"></script>
