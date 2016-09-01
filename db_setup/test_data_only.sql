@@ -16,15 +16,15 @@ USE `gallery_displays`;
 /*CAREFUL - CREATE TEST DATA ONLY FOR DEVELOPMENT - NOT ON PROD SERVER!*/
 /*galleries*/
 INSERT INTO `galleries` VALUES (1, 'sawyer', CURTIME(), NULL, 0);
-INSERT INTO `galleries` VALUES (2, 'wcma', CURTIME(), NULL, 0);
+INSERT INTO `galleries` VALUES (2, 'demo', CURTIME(), NULL, 0);
 
 /*monitors*/
 INSERT INTO `monitors` VALUES (10, 1, 'sawyer_monitor_1', 'bulldozer_b.jpg', CURTIME(), NULL, 0);
 INSERT INTO `monitors` VALUES (11, 1, 'sawyer_monitor_2', 'earth-eaters-europe-Germany3.jpg', CURTIME(), NULL, 0);
 INSERT INTO `monitors` VALUES (13, 1, 'sawyer_monitor_3', 'Mo-20141118-lens-reynolds.jpg', CURTIME(), NULL, 0);
-INSERT INTO `monitors` VALUES (14, 2, 'wcma_monitor_1', '60_36_2_a.jpg', CURTIME(), NULL, 0);
-INSERT INTO `monitors` VALUES (15, 2, 'wcma_monitor_2', '62_91.jpg', CURTIME(), NULL, 0);
-INSERT INTO `monitors` VALUES (16, 2, 'wcma_monitor_3', '60_33_J.jpg', CURTIME(), NULL, 0);
+INSERT INTO `monitors` VALUES (14, 2, 'demo_monitor_1', '60_36_2_a.jpg', CURTIME(), NULL, 0);
+INSERT INTO `monitors` VALUES (15, 2, 'demo_monitor_2', '62_91.jpg', CURTIME(), NULL, 0);
+INSERT INTO `monitors` VALUES (16, 2, 'demo_monitor_3', '60_33_J.jpg', CURTIME(), NULL, 0);
 
 UPDATE `monitors` SET flag_delete = TRUE WHERE monitor_id = 13;
 

@@ -5,7 +5,7 @@
 	 * Documentation:
 	 * 1) This application expects the following name-value pairs to be submitted as a single form.
 	 * 2) The hidden INPUT NAME must exactly match the image subdirectory name.
-	 * ** standard format: "gallery_monitor_number" (examples: sawyer_monitor_1, sawyer_monitor_2, wcma_monitor_1, wcma_monitor_2, wcma_monitor_3)
+	 * ** standard format: "gallery_monitor_number" (examples: sawyer_monitor_1, sawyer_monitor_2, demo_monitor_1, demo_monitor_2, demo_monitor_3)
 	 * ** the gallery name is derrived from the format above.
 	 * ** you must use underscores in your images subdirectory names
 	 * ** the trailing value of your images subdirectory names must be an integer (a number)
@@ -46,31 +46,31 @@
 	</style>
 </head>
 <body>
-<h1>WCMA: Accesson Number Project</h1>
+<h1>DEMO: Accesson Number Project</h1>
 <!-- DEMO #1 -->
 <form name="demo1" action="process_requests.php" method="post" style="padding: 5px;">
-	<input type="hidden" name="wcma_monitor_1" value="62_91.jpg" />
-	<input type="hidden" name="wcma_monitor_2" value="62_91.jpg" />
-	<input type="hidden" name="wcma_monitor_3" value="60_36_2_a.jpg" />
+	<input type="hidden" name="demo_monitor_1" value="62_91.jpg" />
+	<input type="hidden" name="demo_monitor_2" value="62_91.jpg" />
+	<input type="hidden" name="demo_monitor_3" value="60_36_2_a.jpg" />
 
 	<div class="simulation_div_outer">
 		<div class="simulation_div_inner">
-			<h3>iPad demo: WCMA</h3><br />
+			<h3>iPad demo: DEMO</h3><br />
 			<p align="center"><input type="submit" id="submit_button" value="Submit" style="font-weight: bold; font-size: xx-large; background-color: deeppink;" /></p>
 		</div>
 		<div class="simulation_div_inner">
-			<em>wcma_monitor_1</em><br />
-			<img src="thumbnails/wcma/62_91.jpg" /><br />
+			<em>demo_monitor_1</em><br />
+			<img src="thumbnails/demo/62_91.jpg" /><br />
 			<small>62_91.jpg</small>
 		</div>
 		<div class="simulation_div_inner">
-			<em>wcma_monitor_2</em><br />
-			<img src="thumbnails/wcma/62_91.jpg" /><br />
+			<em>demo_monitor_2</em><br />
+			<img src="thumbnails/demo/62_91.jpg" /><br />
 			<small>62_91.jpg</small>
 		</div>
 		<div class="simulation_div_inner">
-			<em>wcma_monitor_3</em><br />
-			<img src="thumbnails/wcma/60_36_2_a.jpg" /><br />
+			<em>demo_monitor_3</em><br />
+			<img src="thumbnails/demo/60_36_2_a.jpg" /><br />
 			<small>60_36_2_a.jpg</small>
 		</div>
 	</div>
@@ -78,28 +78,28 @@
 
 <!-- DEMO #2 -->
 <form name="demo2" action="process_requests.php" method="post" style="padding: 5px;">
-	<input type="hidden" name="wcma_monitor_1" value="60_33_J.jpg" />
-	<input type="hidden" name="wcma_monitor_2" value="60_33_J.jpg" />
-	<input type="hidden" name="wcma_monitor_3" value="60_39_2_C_a.jpg" />
+	<input type="hidden" name="demo_monitor_1" value="60_33_J.jpg" />
+	<input type="hidden" name="demo_monitor_2" value="60_33_J.jpg" />
+	<input type="hidden" name="demo_monitor_3" value="60_39_2_C_a.jpg" />
 
 	<div class="simulation_div_outer">
 		<div class="simulation_div_inner">
-			<h3>iPad demo: WCMA</h3><br />
+			<h3>iPad demo: DEMO</h3><br />
 			<p align="center"><input type="submit" id="submit_button" value="Submit" style="font-weight: bold; font-size: xx-large; background-color: deeppink;" /></p>
 		</div>
 		<div class="simulation_div_inner">
-			<em>wcma_monitor_1</em><br />
-			<img src="thumbnails/wcma/60_33_J.jpg" /><br />
+			<em>demo_monitor_1</em><br />
+			<img src="thumbnails/demo/60_33_J.jpg" /><br />
 			<small>60_33_J.jpg</small>
 		</div>
 		<div class="simulation_div_inner">
-			<em>wcma_monitor_2</em><br />
-			<img src="thumbnails/wcma/60_33_J.jpg" /><br />
+			<em>demo_monitor_2</em><br />
+			<img src="thumbnails/demo/60_33_J.jpg" /><br />
 			<small>60_33_J.jpg</small>
 		</div>
 		<div class="simulation_div_inner">
-			<em>wcma_monitor_3</em><br />
-			<img src="thumbnails/wcma/60_39_2_C_a.jpg" /><br />
+			<em>demo_monitor_3</em><br />
+			<img src="thumbnails/demo/60_39_2_C_a.jpg" /><br />
 			<small>60_39_2_C_a.jpg</small>
 		</div>
 	</div>
@@ -107,28 +107,28 @@
 
 <!-- DEMO #3 -->
 <form name="demo3" action="process_requests.php" method="post" style="padding: 5px;">
-	<input type="hidden" name="wcma_monitor_1" value="60_39_4_a.jpg" />
-	<input type="hidden" name="wcma_monitor_2" value="62_32_17_F_b.jpg" />
-	<input type="hidden" name="wcma_monitor_3" value="60_33_F.jpg" />
+	<input type="hidden" name="demo_monitor_1" value="60_39_4_a.jpg" />
+	<input type="hidden" name="demo_monitor_2" value="62_32_17_F_b.jpg" />
+	<input type="hidden" name="demo_monitor_3" value="60_33_F.jpg" />
 
 	<div class="simulation_div_outer">
 		<div class="simulation_div_inner">
-			<h3>iPad demo: WCMA</h3><br />
+			<h3>iPad demo: DEMO</h3><br />
 			<p align="center"><input type="submit" id="submit_button" value="Submit" style="font-weight: bold; font-size: xx-large; background-color: deeppink;" /></p>
 		</div>
 		<div class="simulation_div_inner">
-			<em>wcma_monitor_1</em><br />
-			<img src="thumbnails/wcma/60_39_4_a.jpg" /><br />
+			<em>demo_monitor_1</em><br />
+			<img src="thumbnails/demo/60_39_4_a.jpg" /><br />
 			<small>60_39_4_a.jpg</small>
 		</div>
 		<div class="simulation_div_inner">
-			<em>wcma_monitor_2</em><br />
-			<img src="thumbnails/wcma/62_32_17_F_b.jpg" /><br />
+			<em>demo_monitor_2</em><br />
+			<img src="thumbnails/demo/62_32_17_F_b.jpg" /><br />
 			<small>62_32_17_F_b.jpg</small>
 		</div>
 		<div class="simulation_div_inner">
-			<em>wcma_monitor_3</em><br />
-			<img src="thumbnails/wcma/60_33_F.jpg" /><br />
+			<em>demo_monitor_3</em><br />
+			<img src="thumbnails/demo/60_33_F.jpg" /><br />
 			<small>60_33_F.jpg</small>
 		</div>
 	</div>

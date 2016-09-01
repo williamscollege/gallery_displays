@@ -91,7 +91,7 @@
 				// create record
 
 				// check if we need to create a gallery (parent group) for this new monitor
-				$directory_prefix = strchr($directory, "_", -1); // fetch prefix of directory (example: "wcma" is prefix of "wcma_monitor_1")
+				$directory_prefix = strchr($directory, "_", -1); // fetch prefix of directory (example: "demo" is prefix of "demo_monitor_1")
 				$new_gallery      = Gallery::getOneFromDb(['gallery_name' => $directory_prefix], $DB);
 
 				if (!$new_gallery->matchesDb) {
