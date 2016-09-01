@@ -42,7 +42,7 @@ Possible uses: museum gallery exhibitions, weather or energy data usage displays
 #### SETUP: IMAGES/FOLDERS
 * Server: Create subdirectories on server in "/images/" folder to correspond with monitors, using naming convention: "gallery_monitor_number"
 * Requirement: subdirectory names must use underscores to separate the gallery name and the monitor number (integer)
-* Examples: demo_monitor_1, demo_monitor_2, demo_monitor_3, sawyer_monitor_1, sawyer_monitor_2
+* Examples: demo_monitor_1, demo_monitor_2, demo_monitor_3, sawyer_monitor_1, sawyer_monitor_2, sawyer_monitor_3
 * Photoshop: Image prep: Crop images to exactly fit their intended monitor. Allowable image types: .jpg|.png|.gif
 * Example for horizontal orientation: 1920px by 1080px (72dpi). Example for vertical orientation: 1080px by 1920px (72dpi)
 * Thumbnail images: a separate "/thumbnails/" subdirectory exists for your ios app; no requirements exist for this directory or contained images
