@@ -9,7 +9,7 @@
 * [Gallery Displays: view screenshot](http://www.screencast.com/ "Gallery Displays")
 
 ## DESCRIPTION
-Enable a guest to select images from an iPad and display them on any number of display monitors mounted in an exhibition gallery. 
+Enable a guest to curate selected images from an iPad and instantly display them on any number of display monitors mounted in an exhibition gallery. 
 The web application processes the iPad's HTTPS posts, logs them to a database (say: "analytics") and queues images to display on their respective monitors.
 HDMI-enabled monitors are powered by tiny Chromebits.
 This may be used in a museum exhibition gallery, to display photo streams or random slideshows from fixed urls.
@@ -17,7 +17,7 @@ An easy future expansion could be to include the ability to display sequential p
 Possible uses: museum gallery exhibitions, weather or energy data usage displays, athletic photo streams, library displays, etc.
 
 #### FEATURES
-* Enable a person to select images from an iPad and display them on any number of display monitors mounted in the exhibition gallery
+* Enable a person to curate selected images from an iPad and instantly display them on any number of display monitors mounted in the exhibition gallery
 * The iPad app is called ______ and it displays a faceted image thumbnail gallery
 * Images are displayed in Full Screen mode on any size of monitor in portrait or landscape mode
 * Additional galleries or monitors are easily added, or removed, from the exhibition

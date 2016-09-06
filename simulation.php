@@ -24,11 +24,12 @@
 	<style type="text/css">
 		body {
 			margin: 5px;
+			padding: 0;
 			background-color: #8AB840;
 		}
 
 		.simulation_div_outer {
-			width: 95%;
+			width: 100%;
 			height: 160px;
 			padding: 10px;
 			border: solid black 1px;
@@ -36,7 +37,7 @@
 		}
 
 		.simulation_div_inner {
-			width: 25%;
+			width: 16%;
 			float: left;
 		}
 
@@ -47,16 +48,19 @@
 </head>
 <body>
 <h1>DEMO: Accesson Number Project</h1>
-<!-- DEMO #1 -->
+
 <form name="demo1" action="process_requests.php" method="post" style="padding: 5px;">
 	<input type="hidden" name="demo_monitor_1" value="62_91.jpg" />
 	<input type="hidden" name="demo_monitor_2" value="62_91.jpg" />
 	<input type="hidden" name="demo_monitor_3" value="60_36_2_a.jpg" />
+	<input type="hidden" name="demo_monitor_4" value="60_33_J.jpg" />
+	<input type="hidden" name="demo_monitor_5" value="60_33_J.jpg" />
 
 	<div class="simulation_div_outer">
 		<div class="simulation_div_inner">
 			<h3>iPad demo: DEMO</h3><br />
-			<p align="center"><input type="submit" id="submit_button" value="Submit" style="font-weight: bold; font-size: xx-large; background-color: deeppink;" /></p>
+			<p align="center">
+				<input type="submit" id="submit_button" value="Submit" style="font-weight: bold; font-size: xx-large; background-color: deeppink;" /></p>
 		</div>
 		<div class="simulation_div_inner">
 			<em>demo_monitor_1</em><br />
@@ -73,19 +77,31 @@
 			<img src="thumbnails/demo/60_36_2_a.jpg" /><br />
 			<small>60_36_2_a.jpg</small>
 		</div>
+		<div class="simulation_div_inner">
+			<em>demo_monitor_4</em><br />
+			<img src="thumbnails/demo/60_33_J.jpg" /><br />
+			<small>60_33_J.jpg</small>
+		</div>
+		<div class="simulation_div_inner">
+			<em>demo_monitor_5</em><br />
+			<img src="thumbnails/demo/60_33_J.jpg" /><br />
+			<small>60_33_J.jpg</small>
+		</div>
 	</div>
 </form>
 
-<!-- DEMO #2 -->
 <form name="demo2" action="process_requests.php" method="post" style="padding: 5px;">
 	<input type="hidden" name="demo_monitor_1" value="60_33_J.jpg" />
 	<input type="hidden" name="demo_monitor_2" value="60_33_J.jpg" />
 	<input type="hidden" name="demo_monitor_3" value="60_39_2_C_a.jpg" />
+	<input type="hidden" name="demo_monitor_4" value="60_39_4_a.jpg" />
+	<input type="hidden" name="demo_monitor_5" value="62_32_17_F_b.jpg" />
 
 	<div class="simulation_div_outer">
 		<div class="simulation_div_inner">
 			<h3>iPad demo: DEMO</h3><br />
-			<p align="center"><input type="submit" id="submit_button" value="Submit" style="font-weight: bold; font-size: xx-large; background-color: deeppink;" /></p>
+			<p align="center">
+				<input type="submit" id="submit_button" value="Submit" style="font-weight: bold; font-size: xx-large; background-color: deeppink;" /></p>
 		</div>
 		<div class="simulation_div_inner">
 			<em>demo_monitor_1</em><br />
@@ -102,19 +118,31 @@
 			<img src="thumbnails/demo/60_39_2_C_a.jpg" /><br />
 			<small>60_39_2_C_a.jpg</small>
 		</div>
+		<div class="simulation_div_inner">
+			<em>demo_monitor_4</em><br />
+			<img src="thumbnails/demo/60_39_4_a.jpg" /><br />
+			<small>60_39_4_a.jpg</small>
+		</div>
+		<div class="simulation_div_inner">
+			<em>demo_monitor_5</em><br />
+			<img src="thumbnails/demo/62_32_17_F_b.jpg" /><br />
+			<small>62_32_17_F_b.jpg</small>
+		</div>
 	</div>
 </form>
 
-<!-- DEMO #3 -->
 <form name="demo3" action="process_requests.php" method="post" style="padding: 5px;">
 	<input type="hidden" name="demo_monitor_1" value="60_39_4_a.jpg" />
 	<input type="hidden" name="demo_monitor_2" value="62_32_17_F_b.jpg" />
 	<input type="hidden" name="demo_monitor_3" value="60_33_F.jpg" />
+	<input type="hidden" name="demo_monitor_4" value="62_91.jpg" />
+	<input type="hidden" name="demo_monitor_5" value="62_91.jpg" />
 
 	<div class="simulation_div_outer">
 		<div class="simulation_div_inner">
 			<h3>iPad demo: DEMO</h3><br />
-			<p align="center"><input type="submit" id="submit_button" value="Submit" style="font-weight: bold; font-size: xx-large; background-color: deeppink;" /></p>
+			<p align="center">
+				<input type="submit" id="submit_button" value="Submit" style="font-weight: bold; font-size: xx-large; background-color: deeppink;" /></p>
 		</div>
 		<div class="simulation_div_inner">
 			<em>demo_monitor_1</em><br />
@@ -131,12 +159,22 @@
 			<img src="thumbnails/demo/60_33_F.jpg" /><br />
 			<small>60_33_F.jpg</small>
 		</div>
+		<div class="simulation_div_inner">
+			<em>demo_monitor_4</em><br />
+			<img src="thumbnails/demo/62_91.jpg" /><br />
+			<small>62_91.jpg</small>
+		</div>
+		<div class="simulation_div_inner">
+			<em>demo_monitor_5</em><br />
+			<img src="thumbnails/demo/62_91.jpg" /><br />
+			<small>62_91.jpg</small>
+		</div>
 	</div>
 </form>
 
 <h1>Sawyer CET: People, Places and Things</h1>
-<!-- DEMO #4 -->
-<form name="demo4" action="process_requests.php" method="post" style="padding: 5px;">
+
+<form name="sawyer1" action="process_requests.php" method="post" style="padding: 5px;">
 	<input type="hidden" name="sawyer_monitor_1" value="bulldozer_b.jpg" />
 	<input type="hidden" name="sawyer_monitor_2" value="motivational_Moraine_Lake.jpg" />
 	<input type="hidden" name="sawyer_monitor_3" value="Mo-20141118-lens-reynolds.jpg" />
@@ -144,7 +182,8 @@
 	<div class="simulation_div_outer">
 		<div class="simulation_div_inner">
 			<h3>iPad demo: Sawyer</h3><br />
-			<p align="center"><input type="submit" id="submit_button" value="Submit" style="font-weight: bold; font-size: xx-large; background-color: deeppink;" /></p>
+			<p align="center">
+				<input type="submit" id="submit_button" value="Submit" style="font-weight: bold; font-size: xx-large; background-color: deeppink;" /></p>
 		</div>
 		<div class="simulation_div_inner">
 			<em>sawyer_monitor_1</em><br />
@@ -164,8 +203,7 @@
 	</div>
 </form>
 
-<!-- DEMO #5 -->
-<form name="demo5" action="process_requests.php" method="post" style="padding: 5px;">
+<form name="sawyer2" action="process_requests.php" method="post" style="padding: 5px;">
 	<input type="hidden" name="sawyer_monitor_1" value="summer005.s.jpg" />
 	<input type="hidden" name="sawyer_monitor_2" value="wisscasset-maine.jpg" />
 	<input type="hidden" name="sawyer_monitor_3" value="motivational_Moraine_Lake.jpg" />
@@ -173,7 +211,8 @@
 	<div class="simulation_div_outer">
 		<div class="simulation_div_inner">
 			<h3>iPad demo: Sawyer</h3><br />
-			<p align="center"><input type="submit" id="submit_button" value="Submit" style="font-weight: bold; font-size: xx-large; background-color: deeppink;" /></p>
+			<p align="center">
+				<input type="submit" id="submit_button" value="Submit" style="font-weight: bold; font-size: xx-large; background-color: deeppink;" /></p>
 		</div>
 		<div class="simulation_div_inner">
 			<em>sawyer_monitor_1</em><br />
@@ -193,8 +232,7 @@
 	</div>
 </form>
 
-<!-- DEMO #6 -->
-<form name="demo6" action="process_requests.php" method="post" style="padding: 5px;">
+<form name="sawyer3" action="process_requests.php" method="post" style="padding: 5px;">
 	<input type="hidden" name="sawyer_monitor_1" value="earth-eaters-europe-Germany3.jpg" />
 	<input type="hidden" name="sawyer_monitor_2" value="earth-eaters-europe-Germany4.jpg" />
 	<input type="hidden" name="sawyer_monitor_3" value="uyuni-bolivia-train-graveyard-getty.jpg" />
@@ -202,7 +240,8 @@
 	<div class="simulation_div_outer">
 		<div class="simulation_div_inner">
 			<h3>iPad demo: Sawyer</h3><br />
-			<p align="center"><input type="submit" id="submit_button" value="Submit" style="font-weight: bold; font-size: xx-large; background-color: deeppink;" /></p>
+			<p align="center">
+				<input type="submit" id="submit_button" value="Submit" style="font-weight: bold; font-size: xx-large; background-color: deeppink;" /></p>
 		</div>
 		<div class="simulation_div_inner">
 			<em>sawyer_monitor_1</em><br />
