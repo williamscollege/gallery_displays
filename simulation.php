@@ -53,8 +53,8 @@
 	<input type="hidden" name="demo_monitor_1" value="62_91.jpg" />
 	<input type="hidden" name="demo_monitor_2" value="62_91.jpg" />
 	<input type="hidden" name="demo_monitor_3" value="60_36_2_a.jpg" />
-	<input type="hidden" name="demo_monitor_4" value="60_33_J.jpg" />
-	<input type="hidden" name="demo_monitor_5" value="60_33_J.jpg" />
+	<input type="hidden" name="demo_monitor_4" value="60_13.png" />
+	<input type="hidden" name="demo_monitor_5" value="60_13.png" />
 
 	<div class="simulation_div_outer">
 		<div class="simulation_div_inner">
@@ -79,13 +79,13 @@
 		</div>
 		<div class="simulation_div_inner">
 			<em>demo_monitor_4</em><br />
-			<img src="thumbnails/demo/60_33_J.jpg" /><br />
-			<small>60_33_J.jpg</small>
+			<img src="thumbnails/demo/60_13.png" /><br />
+			<small>60_13.png</small>
 		</div>
 		<div class="simulation_div_inner">
 			<em>demo_monitor_5</em><br />
-			<img src="thumbnails/demo/60_33_J.jpg" /><br />
-			<small>60_33_J.jpg</small>
+			<img src="thumbnails/demo/60_13.png" /><br />
+			<small>60_13.png</small>
 		</div>
 	</div>
 </form>
